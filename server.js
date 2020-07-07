@@ -27,9 +27,13 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.text({type: 'text/html'}));
+
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.get('/auth', (req, res) => {
+app.post('/auth', (req, res) => {
+	console.log(req.body);
 	const token = otplib.authenticator.generate(secret);
 	const isValid = validate(token);
 	const response = '' + token + ' ' + isValid;

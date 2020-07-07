@@ -12,7 +12,14 @@
 	function validate(token, secret) {
 		const isTokenValid = otplib.totp.check(token, secret);
 		if (isTokenValid) {
-			return fetch('http://localhost:3000/');
+			const options = {
+				method: 'post',
+				headers: {
+					'Content-Type': 'text/html',
+		    },
+				body: token,
+			};
+			return fetch('http://localhost:3000/auth', options);
 		}
 		return isTokenValid;
 	}
