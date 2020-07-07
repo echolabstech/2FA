@@ -1,13 +1,24 @@
-const express = require('express')
-const app = express()
-const port = 3000
-
+const express = require('express');
 const otplib = require('otplib');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+/*
+	Alternative:
+	const secret = otplib.authenticator.generateSecret();
+	* Note: .generateSecret() is only available for authenticator and not totp/hotp
+*/
 const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
-// Alternative:
-// const secret = otplib.totp.generateSecret();
-// Note: .generateSecret() is only available for authenticator and not totp/hotp
-function validate(token) {
+const port = 3000;
+const corsOptions = {
+	origin: '*',
+	optionsSuccessStatus: 200,
+}
+const app = express();
+app.use(cors(corsOptions));
+app.use(bodyParser.text({type: 'text/html'}));
+
+function validateToken(token) {
 	let isValid = false;
 	try {
 	  isValid = otplib.totp.check(token, secret);
@@ -20,23 +31,10 @@ function validate(token) {
   return isValid;
 }
 
-const cors = require('cors');
-const corsOptions = {
-	origin: '*',
-	optionsSuccessStatus: 200,
-}
-app.use(cors(corsOptions));
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.text({type: 'text/html'}));
-
-app.get('/', (req, res) => res.send('Hello World!'))
-
 app.post('/auth', (req, res) => {
 	const token = req.body;
-	const isValid = validate(token);
-	const response = '' + token + ' ' + isValid;
-	res.send(response);
+	const isValid = validateToken(token);
+	res.send(token);
 });
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
