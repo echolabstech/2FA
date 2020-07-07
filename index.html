@@ -9,15 +9,24 @@
 <script src="https://unpkg.com/@otplib/preset-browser@^12.0.0/buffer.js"></script>
 <script src="https://unpkg.com/@otplib/preset-browser@^12.0.0/index.js"></script>
 <script type="text/javascript">
-	function TOTP_validation(secret) {
-		const token = otplib.totp.generate(secret);
-		const isValid = otplib.totp.check(token, secret);
-		return isValid;
+	function validate(token, secret) {
+		const isTokenValid = otplib.totp.check(token, secret);
+		if (isTokenValid) {
+			return fetch('http://localhost:3000/');
+		}
+		return isTokenValid;
 	}
 
 	const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
-	const isValid = TOTP_validation(secret);
-	console.log(isValid);
+	const token = otplib.totp.generate(secret);
+	const isTOTPValid = validate(token, secret);
+	if (isTOTPValid) {
+		isTOTPValid.then(res => res.text())
+		.then(text => console.log(text))
+		.catch(err => console.error(err));
+	} else {
+		console.log('validation failed');
+	}
 </script>
 </body>
 </html>
