@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/echolabstech/2FA/issues"
   },
-  "homepage": "https://github.com/echolabstech/2FA#readme"
+  "homepage": "https://github.com/echolabstech/2FA#readme",
+  "dependencies": {
+    "@otplib/preset-browser": "^12.0.1"
+  }
 }
