@@ -5,12 +5,12 @@ const port = 3000
 const otplib = require('otplib');
 const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
 // Alternative:
-// const secret = otplib.authenticator.generateSecret();
+// const secret = otplib.totp.generateSecret();
 // Note: .generateSecret() is only available for authenticator and not totp/hotp
 function validate(token) {
 	let isValid = false;
 	try {
-	  isValid = otplib.authenticator.check(token, secret);
+	  isValid = otplib.totp.check(token, secret);
 	} catch (err) {
 	  // Possible errors
 	  // - options validation
@@ -33,8 +33,7 @@ app.use(bodyParser.text({type: 'text/html'}));
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.post('/auth', (req, res) => {
-	console.log(req.body);
-	const token = otplib.authenticator.generate(secret);
+	const token = req.body;
 	const isValid = validate(token);
 	const response = '' + token + ' ' + isValid;
 	res.send(response);
