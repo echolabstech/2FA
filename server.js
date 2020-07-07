@@ -20,6 +20,13 @@ function validate(token) {
   return isValid;
 }
 
+const cors = require('cors');
+const corsOptions = {
+	origin: '*',
+	optionsSuccessStatus: 200,
+}
+app.use(cors(corsOptions));
+
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.get('/auth', (req, res) => {
