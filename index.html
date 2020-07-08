@@ -77,7 +77,8 @@
 				.then(res => res.json())
 				.then(json => handleJsonError(json))
 				.then(json => {
-					const element = document.createElement(json.htmlText);
+					const element = document.createElement('div');
+					element.innerText = json.htmlText;
 					document.querySelector('#root').appendChild(element);
 				})
 				.catch(err => console.error(err));

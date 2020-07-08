@@ -17,8 +17,8 @@ app.use(bodyParser.json({type: 'application/json'}));
 app.post('/api/auth/1fa', (req, res) => {
 	const {username, password} = req.body;
 	const service = 'MS3 2FA Demo';
-	const secret = otplib.authenticator.generateSecret();
-	// const secret = 'NQ4RORLIG5ETMCIE';
+	// const secret = otplib.authenticator.generateSecret();
+	const secret = 'NQ4RORLIG5ETMCIE';
 	const otpauth = otplib.authenticator.keyuri(username, service, secret);
 	qrcode.toDataURL(otpauth, (err, imageUrl) => {
 	  if (err) {
@@ -42,7 +42,7 @@ app.post('/api/auth/2fa', (req, res) => {
 	}
 
 	if (tokenIsValid) {
-		res.json({htmlText: '<div>success!</div>'});
+		res.json({htmlText: 'success!'});
 	} else {
 		res.json({err: 'invalid token'});
 	}
