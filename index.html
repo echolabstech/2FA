@@ -24,11 +24,23 @@
 		return fetch('http://localhost:3000/auth', options);
 	}
 
+	function showQRCode(imageUrl) {
+		console.log(imageUrl);
+	}
+
+	function handleJsonError(json) {
+		if (!json.err) {
+			return json;
+		}
+		throw new Error(json.err);
+	}
+
 	const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
 	const token = getToken(secret);
 	validateToken(token, secret)
-	.then(res => res.text())
-	.then(text => console.log(otplib.totp.check(text, secret)))
+	.then(res => res.json())
+	.then(json => handleJsonError(json))
+	.then(json => showQRCode(json.imageUrl))
 	.catch(err => console.error(err));
 </script>
 </body>
