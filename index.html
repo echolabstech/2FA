@@ -4,44 +4,47 @@
 	<meta charset="UTF-8">
 	<title>2FA Demo</title>
 </head>
-<body>
-	
-<script src="https://unpkg.com/@otplib/preset-browser@^12.0.0/buffer.js"></script>
-<script src="https://unpkg.com/@otplib/preset-browser@^12.0.0/index.js"></script>
-<script type="text/javascript">
-	function getToken(secret) {
-		return otplib.totp.generate(secret);
-	}
+	<body>
+		<img id="qrcode" alt="qrcode" hidden>
 
-	function validateToken(token, secret) {
-		const options = {
-			method: 'post',
-			headers: {
-				'Content-Type': 'text/html',
-	    },
-			body: token,
-		};
-		return fetch('http://localhost:3000/auth', options);
-	}
+		<script src="https://unpkg.com/@otplib/preset-browser@^12.0.0/buffer.js"></script>
+		<script src="https://unpkg.com/@otplib/preset-browser@^12.0.0/index.js"></script>
+		<script type="text/javascript">
+			function getToken(secret) {
+				return otplib.totp.generate(secret);
+			}
 
-	function showQRCode(imageUrl) {
-		console.log(imageUrl);
-	}
+			function validateToken(token, secret) {
+				const options = {
+					method: 'post',
+					headers: {
+						'Content-Type': 'text/html',
+			    },
+					body: token,
+				};
+				return fetch('http://localhost:3000/auth', options);
+			}
 
-	function handleJsonError(json) {
-		if (!json.err) {
-			return json;
-		}
-		throw new Error(json.err);
-	}
+			function showQRCode(imageUrl) {
+				const qrcode = document.querySelector('#qrcode');
+				qrcode.src = imageUrl;
+				qrcode.removeAttribute('hidden');
+			}
 
-	const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
-	const token = getToken(secret);
-	validateToken(token, secret)
-	.then(res => res.json())
-	.then(json => handleJsonError(json))
-	.then(json => showQRCode(json.imageUrl))
-	.catch(err => console.error(err));
-</script>
-</body>
+			function handleJsonError(json) {
+				if (!json.err) {
+					return json;
+				}
+				throw new Error(json.err);
+			}
+
+			const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
+			const token = getToken(secret);
+			validateToken(token, secret)
+			.then(res => res.json())
+			.then(json => handleJsonError(json))
+			.then(json => showQRCode(json.imageUrl))
+			.catch(err => console.error(err));
+		</script>
+	</body>
 </html>
