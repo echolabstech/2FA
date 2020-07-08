@@ -21,8 +21,9 @@
 
 			<img id="qrcode" alt="qrcode" hidden>
 			<form id="second-factor" hidden>
-				<label for="totp">authenticator code</label>
-				<input type="number" name="totp">
+				<label for="token">authenticator code</label>
+				<input type="number" name="token">
+				<input type="hidden" name="secret">
 				<input type="submit" value="submit">
 			</form>
 		</div>
@@ -49,7 +50,7 @@
 				.then(json => handleJsonError(json))
 				.then(json => {
 					showQRCode(json.imageUrl);
-					show2FAForm();
+					show2FAForm(json.secret);
 				})
 				.catch(err => console.error(err));
 				// const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
@@ -63,19 +64,21 @@
 
 			function submitSecondFactor(event) {
 				event.preventDefault();
-				const totp = event.target.elements.totp.value;
+				const token = event.target.elements.token.value;
+				const secret = event.target.elements.secret.value;
 				const options = {
 					method: 'post',
 					headers: {
 						'Content-Type': 'application/json',
 			    },
-					body: JSON.stringify({totp}),
+					body: JSON.stringify({token, secret}),
 				};
 				fetch('http://localhost:3000/api/auth/2fa', options)
 				.then(res => res.json())
 				.then(json => handleJsonError(json))
 				.then(json => {
-					debugger;
+					const element = document.createElement(json.htmlText);
+					document.querySelector('#root').appendChild(element);
 				})
 				.catch(err => console.error(err));
 				// const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
@@ -88,7 +91,7 @@
 			}
 
 			function getToken(secret) {
-				return otplib.totp.generate(secret);
+				return otplib.token.generate(secret);
 			}
 
 			// function validateToken(token, secret) {
@@ -108,8 +111,10 @@
 				qrcode.removeAttribute('hidden');
 			}
 
-			function show2FAForm() {
-				document.querySelector('#second-factor').removeAttribute('hidden');
+			function show2FAForm(secret) {
+				const form = document.querySelector('#second-factor');
+				form.elements.secret.value = secret;
+				form.removeAttribute('hidden');
 			}
 
 			function handleJsonError(json) {

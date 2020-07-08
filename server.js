@@ -37,24 +37,17 @@ app.post('/api/auth/1fa', (req, res) => {
 	  if (err) {
 	    res.json({err});
 	  } else {
-			res.json({imageUrl});
+			res.json({imageUrl, secret});
 	  }
 	});
 });
 
 app.post('/api/auth/2fa', (req, res) => {
-	console.log(req.body);
-	// const token = req.body;
+	const {token, secret} = req.body;
+	console.log(token, secret);
 	// const tokenIsValid = validateToken(token);
 	// if (tokenIsValid) {
-	// 	const otpauth = otplib.authenticator.keyuri(user, service, secret);
-	// 	qrcode.toDataURL(otpauth, (err, imageUrl) => {
-	// 	  if (err) {
-	// 	    res.json({err});
-	// 	  } else {
-	// 			res.json({imageUrl});
-	// 	  }
-	// 	});
+	// 	res.json({htmlText: '<div>success!</div>'});
 	// } else {
 	// 	res.json({err: 'invalid token'});
 	// }
