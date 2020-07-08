@@ -7,8 +7,8 @@
 	<body>
 		<img id="qrcode" alt="qrcode" hidden>
 
-		<script src="https://unpkg.com/@otplib/preset-browser@^12.0.0/buffer.js"></script>
-		<script src="https://unpkg.com/@otplib/preset-browser@^12.0.0/index.js"></script>
+		<script src="lib/otplib-preset-browser@^12.0.0-buffer.js"></script>
+		<script src="lib/otplib-preset-browser@^12.0.0-index.js"></script>
 		<script type="text/javascript">
 			function getToken(secret) {
 				return otplib.totp.generate(secret);
