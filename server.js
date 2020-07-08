@@ -40,6 +40,10 @@ app.post('/api/auth/1fa', (req, res) => {
 			res.json({imageUrl});
 	  }
 	});
+});
+
+app.post('/api/auth/2fa', (req, res) => {
+	console.log(req.body);
 	// const token = req.body;
 	// const tokenIsValid = validateToken(token);
 	// if (tokenIsValid) {
