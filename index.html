@@ -2,28 +2,69 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>2FA Demo</title>
+	<title>2FA Demo - login</title>
 </head>
 	<body>
-		<img id="qrcode" alt="qrcode" hidden>
+		<div id="root">
+			<form id="first-factor">
+				<div>
+					<label for="username">username</label>
+					<input type="text" name="username" value="admin" disabled>
+				</div>
+
+				<div>
+					<label for="password">password</label>
+					<input type="password" name="password" value="admin" disabled>
+					<input type="submit" value="login">
+				</div>
+			</form>
+			<img id="qrcode" alt="qrcode" hidden>
+		</div>
 
 		<script src="lib/otplib-preset-browser@^12.0.0-buffer.js"></script>
 		<script src="lib/otplib-preset-browser@^12.0.0-index.js"></script>
 		<script type="text/javascript">
+			document.querySelector('#first-factor').onsubmit = submitFirstFactor;
+
+			function submitFirstFactor(event) {
+				event.preventDefault();
+				const username = event.target.elements.username.value;
+				const password = event.target.elements.password.value;
+				const options = {
+					method: 'post',
+					headers: {
+						'Content-Type': 'application/json',
+			    },
+					body: JSON.stringify({username, password}),
+				};
+				fetch('http://localhost:3000/api/auth/1fa', options)
+				.then(res => res.json())
+				.then(json => handleJsonError(json))
+				.then(json => showQRCode(json.imageUrl))
+				.catch(err => console.error(err));
+				// const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
+				// const token = getToken(secret);
+				// validateToken(token, secret)
+				// .then(res => res.json())
+				// .then(json => handleJsonError(json))
+				// .then(json => showQRCode(json.imageUrl))
+				// .catch(err => console.error(err));
+			}
+
 			function getToken(secret) {
 				return otplib.totp.generate(secret);
 			}
 
-			function validateToken(token, secret) {
-				const options = {
-					method: 'post',
-					headers: {
-						'Content-Type': 'text/html',
-			    },
-					body: token,
-				};
-				return fetch('http://localhost:3000/auth', options);
-			}
+			// function validateToken(token, secret) {
+			// 	const options = {
+			// 		method: 'post',
+			// 		headers: {
+			// 			'Content-Type': 'application/*+json',
+			//     },
+			// 		body: token,
+			// 	};
+			// 	return fetch('http://localhost:3000/auth', options);
+			// }
 
 			function showQRCode(imageUrl) {
 				const qrcode = document.querySelector('#qrcode');
@@ -37,14 +78,6 @@
 				}
 				throw new Error(json.err);
 			}
-
-			const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
-			const token = getToken(secret);
-			validateToken(token, secret)
-			.then(res => res.json())
-			.then(json => handleJsonError(json))
-			.then(json => showQRCode(json.imageUrl))
-			.catch(err => console.error(err));
 		</script>
 	</body>
 </html>
