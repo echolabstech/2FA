@@ -15,21 +15,35 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis quam illum magni animi ex qui, blanditiis neque atque modi eum quasi quaerat exercitationem porro ducimus magnam voluptatum vero aut aspernatur.</p>
 			<div id="login" class="modal mdc-elevation--z12">
 				<form id="first-factor">
-					<div>
-						<label for="username">username</label>
-						<input type="text" name="username" value="admin" disabled>
+					<div class="mdc-text-field
+											mdc-text-field--outlined
+											mdc-text-field--no-label">
+					  <input class="mdc-text-field__input" type="text"
+					  			 aria-label="Label" placeholder="username"
+					  			 name="username" value="admin">
+					  <span class="mdc-notched-outline">
+					    <span class="mdc-notched-outline__leading"></span>
+					    <span class="mdc-notched-outline__trailing"></span>
+					  </span>
 					</div>
 
-					<div>
-						<label for="password">password</label>
-						<input type="password" name="password" value="admin" disabled>
-						<input type="submit" value="login">
+					<div class="mdc-text-field
+											mdc-text-field--outlined
+											mdc-text-field--no-label">
+					  <input class="mdc-text-field__input" type="password"
+					  			 aria-label="Label" placeholder="password"
+					  			 name="password" value="$trongp@ssw0rd">
+					  <span class="mdc-notched-outline">
+					    <span class="mdc-notched-outline__leading"></span>
+					    <span class="mdc-notched-outline__trailing"></span>
+					  </span>
 					</div>
-					</form>
+				  <input type="submit" value="login">
+				</form>
 
-					<img id="qrcode" alt="qrcode" hidden>
+				<img id="qrcode" alt="qrcode" hidden>
 
-					<form id="second-factor" hidden>
+				<form id="second-factor" hidden>
 					<label for="token">authenticator code</label>
 					<input type="number" name="token">
 					<input type="hidden" name="secret">
