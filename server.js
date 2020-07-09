@@ -8,7 +8,10 @@ const corsOptions = {
 	origin: '*',
 	optionsSuccessStatus: 200,
 }
-const port = 3000;
+let port = process.env.PORT;
+if (port === null || port === undefined || port === '') {
+  port = 8000;
+}
 const app = express();
 
 app.use(cors(corsOptions));
