@@ -16,6 +16,8 @@ const app = express();
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json({type: 'application/json'}));
+app.use(express.static('public'));
+
 app.set('view engine', 'hbs');
 
 app.get('/', (req, res) => {
