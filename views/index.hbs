@@ -53,13 +53,6 @@
 					show2FAForm(json.secret);
 				})
 				.catch(err => console.error(err));
-				// const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
-				// const token = getToken(secret);
-				// validateToken(token, secret)
-				// .then(res => res.json())
-				// .then(json => handleJsonError(json))
-				// .then(json => showQRCode(json.imageUrl))
-				// .catch(err => console.error(err));
 			}
 
 			function submitSecondFactor(event) {
@@ -82,29 +75,7 @@
 					document.querySelector('#root').appendChild(element);
 				})
 				.catch(err => console.error(err));
-				// const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
-				// const token = getToken(secret);
-				// validateToken(token, secret)
-				// .then(res => res.json())
-				// .then(json => handleJsonError(json))
-				// .then(json => showQRCode(json.imageUrl))
-				// .catch(err => console.error(err));
 			}
-
-			function getToken(secret) {
-				return otplib.token.generate(secret);
-			}
-
-			// function validateToken(token, secret) {
-			// 	const options = {
-			// 		method: 'post',
-			// 		headers: {
-			// 			'Content-Type': 'application/*+json',
-			//     },
-			// 		body: token,
-			// 	};
-			// 	return fetch('http://localhost:3000/auth', options);
-			// }
 
 			function showQRCode(imageUrl) {
 				const qrcode = document.querySelector('#qrcode');
