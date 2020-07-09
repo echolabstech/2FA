@@ -16,6 +16,11 @@ const app = express();
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json({type: 'application/json'}));
+app.set('view engine', 'hbs');
+
+app.get('/', (req, res) => {
+	res.render('index');
+});
 
 app.post('/api/auth/1fa', (req, res) => {
 	const {username, password} = req.body;
