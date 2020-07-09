@@ -59,6 +59,7 @@
 				event.preventDefault();
 				const token = event.target.elements.token.value;
 				const secret = event.target.elements.secret.value;
+				if (!validateToken(token, secret)) return console.warn('invalid token');
 				const options = {
 					method: 'post',
 					headers: {
@@ -75,6 +76,10 @@
 					document.querySelector('#root').appendChild(element);
 				})
 				.catch(err => console.error(err));
+			}
+
+			function validateToken(token, secret) {
+				return otplib.authenticator.check(token, secret);
 			}
 
 			function showQRCode(imageUrl) {
