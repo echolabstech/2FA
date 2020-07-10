@@ -8,13 +8,14 @@
 	opacity: 85%;
 	height: 100%;
 	width: 100%;
-	position: absolute;
+	/*position: absolute;*/
+}
+
+.half-screen-size {
+	width: 50vw;
+	height: 50vh;
 }
 
 .modal {
-	width: 25vw;
-	height: 40vh;
-	left: 37.5vw;
-	top: 20vh;
 	position: absolute;
 }

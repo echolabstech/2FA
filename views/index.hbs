@@ -11,69 +11,88 @@
 	<link rel="stylesheet" href="index.css">
 </head>
 	<body>
-		<!-- <div class="scrimmed"></div> -->
 		<div id="root" class="root">
-			<div class="mdc-layout-grid">
+			<div id="content">
+				<div class="scrimmed"></div>
+				<div class="mdc-layout-grid">
 			  <div class="mdc-layout-grid__inner">
 			    <div class="mdc-layout-grid__cell--span-2-phone
 			    						mdc-layout-grid__cell--span-3-tablet
 	    								mdc-layout-grid__cell--span-4-desktop">foo</div>
 					<div class="mdc-layout-grid__cell--span-2-phone
 			    						mdc-layout-grid__cell--span-3-tablet
-	    								mdc-layout-grid__cell--span-4-desktop">bar</div>
+	    								mdc-layout-grid__cell--span-4-desktop">			
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis quam illum magni animi ex qui, blanditiis neque atque modi eum quasi quaerat exercitationem porro ducimus magnam voluptatum vero aut aspernatur.</p>
+					</div>
 					<div class="mdc-layout-grid__cell--span-2-phone
 			    						mdc-layout-grid__cell--span-3-tablet
 	    								mdc-layout-grid__cell--span-4-desktop">foobar</div>
 			  </div>
+				</div>
 			</div>
 
-			<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis quam illum magni animi ex qui, blanditiis neque atque modi eum quasi quaerat exercitationem porro ducimus magnam voluptatum vero aut aspernatur.</p>
-			<div id="login" class="modal mdc-elevation--z12">
-				<form id="first-factor">
-					<div class="mdc-text-field
-											mdc-text-field--outlined
-											mdc-text-field--no-label">
-					  <input class="mdc-text-field__input" type="text"
-					  			 aria-label="Label" placeholder="username"
-					  			 name="username" value="admin">
-					  <span class="mdc-notched-outline">
-					    <span class="mdc-notched-outline__leading"></span>
-					    <span class="mdc-notched-outline__trailing"></span>
-					  </span>
+			<div id="login-modal" class="modal">
+				<div class="mdc-elevation--z12">
+					<div class="mdc-layout-grid">
+						<form id="first-factor">
+							<div class="mdc-layout-grid__inner">
+								<div class="mdc-layout-grid__cell--span-2-phone
+			    						mdc-layout-grid__cell--span-3-tablet
+	    								mdc-layout-grid__cell--span-4-desktop">
+									<div class="mdc-text-field
+															mdc-text-field--outlined
+															mdc-text-field--no-label">
+									  <input class="mdc-text-field__input" type="text"
+									  			 aria-label="Label" placeholder="username"
+									  			 name="username" value="admin">
+									  <span class="mdc-notched-outline">
+									    <span class="mdc-notched-outline__leading"></span>
+									    <span class="mdc-notched-outline__trailing"></span>
+									  </span>
+									</div>
+								</div>
+							</div>
+
+							<div class="mdc-layout-grid__inner">
+								<div class="mdc-layout-grid__cell--span-2-phone
+			    						mdc-layout-grid__cell--span-3-tablet
+	    								mdc-layout-grid__cell--span-4-desktop">
+									<div class="mdc-text-field
+															mdc-text-field--outlined
+															mdc-text-field--no-label">
+									  <input class="mdc-text-field__input" type="password"
+									  			 aria-label="Label" placeholder="password"
+									  			 name="password" value="$trongp@ssw0rd">
+									  <span class="mdc-notched-outline">
+									    <span class="mdc-notched-outline__leading"></span>
+									    <span class="mdc-notched-outline__trailing"></span>
+									  </span>
+									</div>
+								</div>
+							</div>
+						  <button class="mdc-button--raised">
+							  <span class="mdc-button__label">sign-in</span>
+							</button>
+						</form>
+
+						<button class="mdc-button">
+						   <div class="mdc-button__ripple"></div>
+						   <span class="mdc-button__label">sign-up</span>
+						</button>
+
+						<img id="qrcode" alt="qrcode" hidden>
+
+						<form id="second-factor" hidden>
+							<label for="token">authenticator code</label>
+							<input type="number" name="token">
+							<input type="hidden" name="secret">
+							<input type="submit" value="submit">
+						</form>
+
+						<div id="status"></div>
 					</div>
-
-					<div class="mdc-text-field
-											mdc-text-field--outlined
-											mdc-text-field--no-label">
-					  <input class="mdc-text-field__input" type="password"
-					  			 aria-label="Label" placeholder="password"
-					  			 name="password" value="$trongp@ssw0rd">
-					  <span class="mdc-notched-outline">
-					    <span class="mdc-notched-outline__leading"></span>
-					    <span class="mdc-notched-outline__trailing"></span>
-					  </span>
-					</div>
-				  <button class="mdc-button--raised">
-					  <span class="mdc-button__label">sign-in</span>
-					</button>
-				</form>
-
-				<button class="mdc-button">
-				   <div class="mdc-button__ripple"></div>
-				   <span class="mdc-button__label">sign-up</span>
-				</button>
-
-				<img id="qrcode" alt="qrcode" hidden>
-
-				<form id="second-factor" hidden>
-					<label for="token">authenticator code</label>
-					<input type="number" name="token">
-					<input type="hidden" name="secret">
-					<input type="submit" value="submit">
-				</form>
-
-				<div id="status"></div>
-			</div> -->
+				</div>
+			</div>
 		</div>
 
 		<script src="otplib-preset-browser@^12.0.0-buffer.js"></script>
