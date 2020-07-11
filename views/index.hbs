@@ -14,7 +14,7 @@
 			<div class="scrimmed"></div>
 
 			<div class="modal">
-				<div class="modal__login mdc-elevation--z12">
+				<div id="modal__sign-in" class="modal__login mdc-elevation--z12">
 					<form class="modal__login__form" id="first-factor">
 						<div class="mdc-text-field
 												mdc-text-field--outlined
@@ -45,8 +45,56 @@
 						</button>
 					</form>
 
-					<button class="mdc-button">
+					<button id="show__signup-modal" class="mdc-button">
 						<span class="mdc-button__ripple"></span>sign-up
+					</button>
+				</div>
+
+				<div id="modal__sign-up" class="modal__login mdc-elevation--z12 hide">
+					<form class="modal__login__form" id="first-factor">
+						<div class="mdc-text-field
+												mdc-text-field--outlined
+												mdc-text-field--no-label">
+						  <input class="mdc-text-field__input" type="text"
+						  			 aria-label="Label" placeholder="username"
+						  			 name="username" value="admin">
+						  <span class="mdc-notched-outline">
+						    <span class="mdc-notched-outline__leading"></span>
+						    <span class="mdc-notched-outline__trailing"></span>
+						  </span>
+						</div>
+
+						<div class="mdc-text-field
+												mdc-text-field--outlined
+												mdc-text-field--no-label">
+						  <input class="mdc-text-field__input" type="password"
+						  			 aria-label="Label" placeholder="password"
+						  			 name="password" value="$trongp@ssw0rd">
+						  <span class="mdc-notched-outline">
+						    <span class="mdc-notched-outline__leading"></span>
+						    <span class="mdc-notched-outline__trailing"></span>
+						  </span>
+						</div>
+
+						<div class="mdc-text-field
+												mdc-text-field--outlined
+												mdc-text-field--no-label">
+						  <input class="mdc-text-field__input" type="password"
+						  			 aria-label="Label" placeholder="confirm password"
+						  			 name="confirm-password" value="$trongp@ssw0rd">
+						  <span class="mdc-notched-outline">
+						    <span class="mdc-notched-outline__leading"></span>
+						    <span class="mdc-notched-outline__trailing"></span>
+						  </span>
+						</div>
+
+						<button class="mdc-button mdc-button--unelevated">
+							<span class="mdc-button__ripple"></span>sign-up
+						</button>
+					</form>
+
+					<button class="mdc-button">
+						<span class="mdc-button__ripple"></span>sign-in
 					</button>
 				</div>
 
@@ -80,8 +128,22 @@
 		<script type="text/javascript">
 			const root = document.querySelector('#root');
 			root.querySelector('#first-factor').onsubmit = submitFirstFactor;
-			root.querySelector('#second-factor').onsubmit = submitSecondFactor;
+			// root.querySelector('#second-factor').onsubmit = submitSecondFactor;
 			const status = root.querySelector('#status');
+			const signupButton = root.querySelector('#show__signup-modal');
+			signupButton.onclick = showSignupModal;
+			const signupModal = root.querySelector('#modal__sign-up');
+			const signinModal = root.querySelector('#modal__sign-in');
+
+			function showSignupModal(event) {
+				let classes = signinModal.className.split(' ');
+				classes.push('hide');
+				signinModal.className = classes.join(' ');
+
+				classes = signupModal.className.split(' ');
+				classes = classes.filter(classs => {return classs !== 'hide'});
+				signupModal.className = classes.join(' ');
+			}
 
 			function submitFirstFactor(event) {
 				event.preventDefault();

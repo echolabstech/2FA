@@ -51,3 +51,7 @@
 	justify-content: space-evenly;
 	height: 100%;
 }
+
+.hide {
+	display: none !important;
+}
