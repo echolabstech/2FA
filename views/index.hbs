@@ -161,23 +161,24 @@
 
 			function submitFirstFactor(event) {
 				event.preventDefault();
-				const username = event.target.elements.username.value;
-				const password = event.target.elements.password.value;
-				const options = {
-					method: 'post',
-					headers: {
-						'Content-Type': 'application/json',
-			    },
-					body: JSON.stringify({username, password}),
-				};
-				fetch('/api/auth/1fa', options)
-				.then(res => res.json())
-				.then(json => handleJsonError(json))
-				.then(json => {
-					showQRCode(json.imageUrl);
-					show2FAForm(json.secret);
-				})
-				.catch(err => console.error(err));
+				debugger;
+				// const username = event.target.elements.username.value;
+				// const password = event.target.elements.password.value;
+				// const options = {
+				// 	method: 'post',
+				// 	headers: {
+				// 		'Content-Type': 'application/json',
+			 //    },
+				// 	body: JSON.stringify({username, password}),
+				// };
+				// fetch('/api/auth/1fa', options)
+				// .then(res => res.json())
+				// .then(json => handleJsonError(json))
+				// .then(json => {
+				// 	showQRCode(json.imageUrl);
+				// 	show2FAForm(json.secret);
+				// })
+				// .catch(err => console.error(err));
 			}
 
 			function submitSecondFactor(event) {
