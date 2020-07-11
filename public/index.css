@@ -68,6 +68,22 @@
 	height: 100%;
 }
 
+.modal__signup__2fa {
+	background-color: white;
+	border-radius: .5em;
+	padding: 1em;
+	display: flex;
+	flex-direction: column;
+	height: 38%;
+}
+
+.modal__signup__2fa__form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	height: 100%;
+}
+
 .hide {
 	display: none !important;
 }
