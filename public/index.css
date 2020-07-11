@@ -36,7 +36,7 @@
 	position: absolute;
 }
 
-.modal__login {
+.modal__signin {
 	background-color: white;
 	border-radius: .5em;
 	padding: 1em;
@@ -45,7 +45,7 @@
 	height: 25%;
 }
 
-.modal__login__form {
+.modal__signin__form {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>2FA Demo - login</title>
+	<title>2FA Demo</title>
   <link rel="stylesheet" href="reset.css">
 	<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
   <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
@@ -14,8 +14,8 @@
 			<div class="scrimmed"></div>
 
 			<div class="modal">
-				<div id="modal__sign-in" class="modal__login mdc-elevation--z12">
-					<form class="modal__login__form" id="first-factor">
+				<div id="modal__sign-in" class="modal__signin mdc-elevation--z12">
+					<form class="modal__signin__form" id="first-factor">
 						<div class="mdc-text-field
 												mdc-text-field--outlined
 												mdc-text-field--no-label">
@@ -50,8 +50,8 @@
 					</button>
 				</div>
 
-				<div id="modal__sign-up" class="modal__login mdc-elevation--z12 hide">
-					<form class="modal__login__form" id="first-factor">
+				<div id="modal__sign-up" class="modal__signin mdc-elevation--z12 hide">
+					<form class="modal__signin__form" id="first-factor">
 						<div class="mdc-text-field
 												mdc-text-field--outlined
 												mdc-text-field--no-label">
@@ -93,7 +93,7 @@
 						</button>
 					</form>
 
-					<button class="mdc-button">
+					<button id="show__signin-modal" class="mdc-button">
 						<span class="mdc-button__ripple"></span>sign-in
 					</button>
 				</div>
@@ -130,10 +130,24 @@
 			root.querySelector('#first-factor').onsubmit = submitFirstFactor;
 			// root.querySelector('#second-factor').onsubmit = submitSecondFactor;
 			const status = root.querySelector('#status');
-			const signupButton = root.querySelector('#show__signup-modal');
-			signupButton.onclick = showSignupModal;
+			const signupFromSigninModal = root.querySelector('#show__signup-modal');
+			signupFromSigninModal.onclick = showSignupModal;
+
+			const signinFromSignupModal = root.querySelector('#show__signin-modal');
+			signinFromSignupModal.onclick = showSigninModal;
+
 			const signupModal = root.querySelector('#modal__sign-up');
 			const signinModal = root.querySelector('#modal__sign-in');
+
+			function showSigninModal(event) {
+				let classes = signupModal.className.split(' ');
+				classes.push('hide');
+				signupModal.className = classes.join(' ');
+
+				classes = signinModal.className.split(' ');
+				classes = classes.filter(classs => {return classs !== 'hide'});
+				signinModal.className = classes.join(' ');
+			}
 
 			function showSignupModal(event) {
 				let classes = signinModal.className.split(' ');
