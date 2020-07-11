@@ -40,4 +40,11 @@
 	background-color: white;
 	border-radius: .5em;
 	padding: 1em;
+	display: flex;
+	flex-direction: column;
+}
+
+.modal__login__form {
+	display: flex;
+	flex-direction: column;
 }
