@@ -38,4 +38,6 @@
 
 .modal__login {
 	background-color: white;
+	border-radius: .5em;
+	padding: 1em;
 }
