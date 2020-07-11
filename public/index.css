@@ -7,6 +7,15 @@
 	display: flex;
 	flex-direction: row;
 	height: 100%;
+	flex-wrap: wrap;
+}
+
+.content__col {
+	flex: 1 2 20%;
+}
+
+.content__col:nth-child(2) {
+	flex: 2 1 60%;
 }
 
 .scrimmed {
