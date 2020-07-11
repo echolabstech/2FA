@@ -15,7 +15,8 @@
 
 			<div class="modal">
 				<div id="modal__sign-up" class="modal__signup mdc-elevation--z12">
-					<form class="modal__signup__form" id="first-factor">
+					<div id="status"></div>
+					<form class="modal__signup__form">
 						<div class="mdc-text-field
 												mdc-text-field--outlined
 												mdc-text-field--no-label">
@@ -63,6 +64,7 @@
 				</div>
 
 				<div id="modal__sign-up__2fa" class="modal__signup__2fa mdc-elevation--z12 hide">
+					<div id="status"></div>
 					<img id="qrcode" alt="qrcode" src="data:image/png;base64,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">
 					<form class="modal__signup__2fa__form" id="submit-token">
 						<div class="mdc-text-field
@@ -84,6 +86,7 @@
 				</div>
 
 				<div id="modal__sign-in" class="modal__signin mdc-elevation--z12 hide">
+					<div id="status"></div>
 					<form class="modal__signin__form" id="first-factor">
 						<div class="mdc-text-field
 												mdc-text-field--outlined
@@ -118,8 +121,6 @@
 						<span class="mdc-button__ripple"></span>sign-up
 					</button>
 				</div>
-
-				<!-- <div id="status"></div> -->
 			</div>
 
 			<div class="content">
@@ -146,11 +147,14 @@
 			const signupFromSignupModal = root.querySelector('#show__2fa-modal');
 			signupFromSignupModal.onclick = submitSignup;
 
-			const submitToken = root.querySelector('#submit-token');
-			submitToken.onsubmit = submitSecondFactor;
-
 			const signinFromSignupModal = root.querySelector('#show__signin-modal');
 			signinFromSignupModal.onclick = showSigninModal;
+
+			const firstFactor = root.querySelector('#first-factor');
+			firstFactor.onsubmit = submitFirstFactor;
+
+			const submitToken = root.querySelector('#submit-token');
+			submitToken.onsubmit = submitSecondFactor;
 
 			const signupModal = root.querySelector('#modal__sign-up');
 			const signinModal = root.querySelector('#modal__sign-in');
@@ -158,8 +162,10 @@
 
 			function submitSignup(event) {
 				event.preventDefault();
-				// submit new user registration credentials
+				debugger;
+				updateStatus('loading...', 'info');
 				// on success response, show 2fa modal
+				debugger;
 				showSecondFactorModal();
 			}
 
@@ -197,29 +203,31 @@
 
 			function submitFirstFactor(event) {
 				event.preventDefault();
-				const username = event.target.elements.username.value;
-				const password = event.target.elements.password.value;
-				const options = {
-					method: 'post',
-					headers: {
-						'Content-Type': 'application/json',
-			    },
-					body: JSON.stringify({username, password}),
-				};
-				fetch('/api/auth/1fa', options)
-				.then(res => res.json())
-				.then(json => handleJsonError(json))
-				.then(json => {
-					showQRCode(json.imageUrl);
-					show2FAForm(json.secret);
-				})
-				.catch(err => console.error(err));
+				debugger;
+				updateStatus('loading...', 'info');
+				// const username = event.target.elements.username.value;
+				// const password = event.target.elements.password.value;
+				// const options = {
+				// 	method: 'post',
+				// 	headers: {
+				// 		'Content-Type': 'application/json',
+			 //    },
+				// 	body: JSON.stringify({username, password}),
+				// };
+				// fetch('/api/auth/1fa', options)
+				// .then(res => res.json())
+				// .then(json => handleJsonError(json))
+				// .then(json => {
+				// 	showQRCode(json.imageUrl);
+				// 	show2FAForm(json.secret);
+				// })
+				// .catch(err => console.error(err));
 			}
 
 			function submitSecondFactor(event) {
 				event.preventDefault();
 				debugger;
-				// updateStatus('loading...', 'info');
+				updateStatus('loading...', 'info');
 				// const token = event.target.elements.token.value;
 				// const secret = event.target.elements.secret.value;
 				// if (!validateToken(token, secret)) return updateStatus('invalid token', 'error');
