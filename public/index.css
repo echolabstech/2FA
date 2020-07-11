@@ -18,4 +18,6 @@
 
 .modal {
 	position: absolute;
+	top: 0px;
+	background-color: white;
 }
