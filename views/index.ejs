@@ -42,11 +42,11 @@
 			const template = document.querySelector('template');
 
 			window.addEventListener('sign-up', event => {
-		    const signupFirstFactor = root.querySelector('#signup-first-factor');
 				const signupSecondFactor = template.content.querySelector('#signup-second-factor');
+				signupSecondFactor.getElementsByTagName('img').qrcode.src = event.detail.imageUrl;
+
+		    const signupFirstFactor = root.querySelector('#signup-first-factor');
 				signupFirstFactor.replaceWith(signupSecondFactor);
-				console.log('make imageUrl available to 2fa-sign-up modal');
-				console.log(event.detail.imageUrl);
 			});
 
 			window.addEventListener('show__sign-in', event => {
