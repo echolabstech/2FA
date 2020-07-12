@@ -18,7 +18,7 @@
 	</style>
 
 	<div class="modal__signin mdc-elevation--z12">
-		<form class="modal__signin__form" id="first-factor">
+		<form class="modal__signin__form">
 			<div class="mdc-text-field
 									mdc-text-field--outlined
 									mdc-text-field--no-label">
@@ -45,15 +45,47 @@
 			  </span>
 			</div>
 
-			<button class="mdc-button mdc-button--unelevated">
+			<button type="submit" class="mdc-button mdc-button--unelevated">
 				<span class="mdc-button__ripple"></span>sign-in
 			</button>
 		</form>
 
-		<button id="show__signup-modal" class="mdc-button">
+		<button type="cancel" class="mdc-button">
 			<span class="mdc-button__ripple"></span>sign-up
 		</button>
 	</div>
 
-	<!-- <div id="status"></div> -->
+	<div id="status"></div>
+
+	<script>
+		const modal = document.querySelector('#signin-first-factor');
+
+		modal.querySelector('form').onsubmit = event => {
+			event.preventDefault();
+			console.log('submit user credentials');
+			const username = event.target.elements.username.value;
+			const password = event.target.elements.password.value;
+			const options = {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json',
+		    },
+				body: JSON.stringify({username, password}),
+			};
+			fetch('/api/auth/1fa', options)
+			.then(res => res.json())
+			.then(json => handleJsonError(json))
+			.then(json => {
+				const signInEvent = new CustomEvent('signIn', {detail: {sessionId: 'foobar'}});
+				window.dispatchEvent(signInEvent);
+			})
+			.catch(err => console.error(err));
+		};
+
+		modal.querySelector('button[type=cancel]').onclick = event => {
+			console.log('hide signin-first-factor modal');
+			const cancelEvent = new Event('cancel-signin-first-factor');
+			window.dispatchEvent(cancelEvent);
+		};
+	</script>
 </div>
