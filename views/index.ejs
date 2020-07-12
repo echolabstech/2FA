@@ -11,7 +11,7 @@
 </head>
 	<body>
 		<div id="root" class="root">
-			<div class="scrimmed"></div>
+			<!-- <div class="scrimmed"></div> -->
 
 			<%- include('modal/signup-first-factor'); %>
 
@@ -51,11 +51,9 @@
 			window.addEventListener('cancel-signup-first-factor', event => {
 				console.log('show signin-first-factor modal');
 		    const signupFirstFactor = root.querySelector('#signup-first-factor');
-		    const clone = signupFirstFactor.cloneNode(true);
-				template.content.appendChild(clone);
+				template.content.appendChild(signupFirstFactor);
 				const signinFirstFactor = template.content.querySelector('#signin-first-factor');
-				signupFirstFactor.replaceWith(signinFirstFactor);
-
+				root.prepend(signinFirstFactor);
 			});
 
 			window.addEventListener('signIn', event => {
@@ -65,10 +63,9 @@
 			window.addEventListener('cancel-signin-first-factor', event => {
 				console.log('show signup-first-factor modal');
 		    const signinFirstFactor = root.querySelector('#signin-first-factor');
-		    const clone = signinFirstFactor.cloneNode(true);
-		    template.content.appendChild(clone);
+		    template.content.appendChild(signinFirstFactor);
 				const signupFirstFactor = template.content.querySelector('#signup-first-factor');
-				signinFirstFactor.replaceWith(signupFirstFactor);
+				root.prepend(signupFirstFactor);
 			});
 			// const root = document.querySelector('#root');
 
