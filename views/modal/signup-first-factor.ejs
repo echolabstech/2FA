@@ -71,34 +71,36 @@
 	<div id="status"></div>
 
 	<script>
-		const modal = document.querySelector('#signup-first-factor');
+		(function() {
+			const modal = document.querySelector('#signup-first-factor');
 
-		modal.querySelector('form').onsubmit = event => {
-			event.preventDefault();
-			console.log('submit new user credentials');
-			const username = event.target.elements.username.value;
-			const password = event.target.elements.password.value;
-			const options = {
-				method: 'post',
-				headers: {
-					'Content-Type': 'application/json',
-		    },
-				body: JSON.stringify({username, password}),
+			modal.querySelector('form').onsubmit = event => {
+				event.preventDefault();
+				console.log('submit new user credentials');
+				const username = event.target.elements.username.value;
+				const password = event.target.elements.password.value;
+				const options = {
+					method: 'post',
+					headers: {
+						'Content-Type': 'application/json',
+			    },
+					body: JSON.stringify({username, password}),
+				};
+				fetch('/api/auth/1fa', options)
+				.then(res => res.json())
+				.then(json => handleJsonError(json))
+				.then(json => {
+					const signUpEvent = new CustomEvent('sign-up', {detail: {imageUrl: json.imageUrl}});
+					window.dispatchEvent(signUpEvent);
+				})
+				.catch(err => console.error(err));
 			};
-			fetch('/api/auth/1fa', options)
-			.then(res => res.json())
-			.then(json => handleJsonError(json))
-			.then(json => {
-				const signUpEvent = new CustomEvent('sign-up', {detail: {imageUrl: json.imageUrl}});
-				window.dispatchEvent(signUpEvent);
-			})
-			.catch(err => console.error(err));
-		};
 
-		modal.querySelector('button[type=cancel]').onclick = event => {
-			console.log('hide signup-first-factor modal');
-			const showSignInEvent = new Event('cancel-signup-first-factor');
-			window.dispatchEvent(showSignInEvent);
-		};
+			modal.querySelector('button[type=cancel]').onclick = event => {
+				console.log('hide signup-first-factor modal');
+				const showSignInEvent = new Event('cancel-signup-first-factor');
+				window.dispatchEvent(showSignInEvent);
+			};
+		})();
 	</script>
 </div>
