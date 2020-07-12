@@ -65,7 +65,8 @@
 	};
 
 	modal.querySelector('[cancel]').onclick = event => {
-		console.log('hide modal');
-		console.log('emit event stating that this modal has been hidden');
+		console.log('hide 1fa-signup modal');
+		const showSignInEvent = new Event('show__sign-in', {foo: 'bar'});
+		window.dispatchEvent(showSignInEvent);
 	};
 </script>
