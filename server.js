@@ -34,7 +34,7 @@ app.post('/api/auth/1fa', (req, res) => {
 	  if (err) {
 	    res.json({err});
 	  } else {
-			res.json({imageUrl, secret});
+			res.json({imageUrl});
 	  }
 	});
 });

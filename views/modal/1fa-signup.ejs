@@ -59,8 +59,23 @@
 	modal.querySelector('form').onsubmit = event => {
 		event.preventDefault();
 		console.log('submit new user credentials');
-		const signUpEvent = new Event('sign-up', {foo: 'bar'});
-		window.dispatchEvent(signUpEvent);
+		const username = event.target.elements.username.value;
+		const password = event.target.elements.password.value;
+		const options = {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json',
+	    },
+			body: JSON.stringify({username, password}),
+		};
+		fetch('/api/auth/1fa', options)
+		.then(res => res.json())
+		.then(json => handleJsonError(json))
+		.then(json => {
+			const signUpEvent = new CustomEvent('sign-up', {detail: {imageUrl: json.imageUrl}});
+			window.dispatchEvent(signUpEvent);
+		})
+		.catch(err => console.error(err));
 	};
 
 	modal.querySelector('[cancel]').onclick = event => {
