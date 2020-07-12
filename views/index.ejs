@@ -51,8 +51,24 @@
 			window.addEventListener('cancel-signup-first-factor', event => {
 				console.log('show signin-first-factor modal');
 		    const signupFirstFactor = root.querySelector('#signup-first-factor');
+		    const clone = signupFirstFactor.cloneNode(true);
+				template.content.appendChild(clone);
 				const signinFirstFactor = template.content.querySelector('#signin-first-factor');
 				signupFirstFactor.replaceWith(signinFirstFactor);
+
+			});
+
+			window.addEventListener('signIn', event => {
+				console.log('first factor signIn done');
+			});
+
+			window.addEventListener('cancel-signin-first-factor', event => {
+				console.log('show signup-first-factor modal');
+		    const signinFirstFactor = root.querySelector('#signin-first-factor');
+		    const clone = signinFirstFactor.cloneNode(true);
+		    template.content.appendChild(clone);
+				const signupFirstFactor = template.content.querySelector('#signup-first-factor');
+				signinFirstFactor.replaceWith(signupFirstFactor);
 			});
 			// const root = document.querySelector('#root');
 
