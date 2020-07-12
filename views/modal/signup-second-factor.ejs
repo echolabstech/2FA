@@ -50,7 +50,7 @@
 				modal.querySelector('form').onsubmit = event => {
 					event.preventDefault();
 					console.log('submit 2fa 6 digit auth token');
-					const signInEvent = new CustomEvent('signIn', {detail: {sessionId: 'foobar'}});
+					const signInEvent = new CustomEvent('signUp-2fa', {detail: {sessionId: 'foobar'}});
 					window.dispatchEvent(signInEvent);
 				};
 			})();

@@ -54,6 +54,10 @@
 				root.prepend(signinFirstFactor);
 			});
 
+			window.addEventListener('signUp-2fa', event => {
+				console.log('signUp-2fa successful. save sessionID and continue.');
+			});
+
 			window.addEventListener('signIn', event => {
 				console.log('first factor signIn done');
 			});
@@ -65,6 +69,7 @@
 				const signupFirstFactor = template.content.querySelector('#signup-first-factor');
 				root.prepend(signupFirstFactor);
 			});
+
 			// const root = document.querySelector('#root');
 
 			// const template = root.querySelector('template');
