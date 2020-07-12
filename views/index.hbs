@@ -148,6 +148,9 @@
 		<script type="text/javascript">
 			const root = document.querySelector('#root');
 
+			const firstFactorSignupModal = root.querySelector('#modal__sign-up__1fa');
+			firstFactorSignupModal.querySelector('form').onsubmit = submitSignup;
+
 			// const signupFromSigninModal = root.querySelector('#show__signup-modal');
 			// signupFromSigninModal.onclick = showSignupModal;
 
