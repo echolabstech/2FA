@@ -58,9 +58,10 @@
 
 	modal.querySelector('form').onsubmit = event => {
 		event.preventDefault();
-		console.log('submit new user registration credentials');
-		console.log('on success response, hide modal');
-		console.log('show Second Factor Modal');
+		console.log('submit new user credentials');
+		console.log('hide 1fa-signup modal');
+		const signUpEvent = new Event('sign-up', {foo: 'bar'});
+		window.dispatchEvent(signUpEvent);
 	};
 
 	modal.querySelector('[cancel]').onclick = event => {
