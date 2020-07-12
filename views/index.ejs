@@ -13,7 +13,7 @@
 		<div id="root" class="root">
 			<div class="scrimmed"></div>
 
-			<%- include('modal/1fa-signup'); %>
+			<%- include('modal/signup-first-factor'); %>
 
 			<div class="content">
 				<span class="content__col">
@@ -39,14 +39,15 @@
 		<script src="otplib-preset-browser@^12.0.0-index.js"></script>
 		<script type="text/javascript">
 			const root = document.querySelector('#root');
+			const template = document.querySelector('template');
 
-			var template = document.querySelector('template');
-	    var foo = template.content.querySelector('.foo');
+	    const foo = template.content.querySelector('.foo');
 	    root.appendChild(foo);
 
 			window.addEventListener('sign-up', event => {
-				console.log('append 1fa-signup modal to template');
-				console.log('remove 1fa-signup modal from root');
+		    const signupFirstFactor = root.querySelector('#signup-first-factor');
+		    template.content.appendChild(signupFirstFactor);
+
 				console.log('append 2fa-signup modal to root root');
 				console.log('remove 1fa-signup modal from template');
 				console.log('make imageUrl available to 2fa-sign-up modal');
