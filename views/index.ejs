@@ -30,7 +30,7 @@
 
 		<template>
 		  <div class="foo"></div>
-			<%- include('modal/2fa-signup'); %>
+			<%- include('modal/signup-second-factor'); %>
 
 			<%- include('modal/1fa-signin'); %>
 		</template>
@@ -41,15 +41,10 @@
 			const root = document.querySelector('#root');
 			const template = document.querySelector('template');
 
-	    const foo = template.content.querySelector('.foo');
-	    root.appendChild(foo);
-
 			window.addEventListener('sign-up', event => {
 		    const signupFirstFactor = root.querySelector('#signup-first-factor');
-		    template.content.appendChild(signupFirstFactor);
-
-				console.log('append 2fa-signup modal to root root');
-				console.log('remove 1fa-signup modal from template');
+				const signupSecondFactor = template.content.querySelector('#signup-second-factor');
+				signupFirstFactor.replaceWith(signupSecondFactor);
 				console.log('make imageUrl available to 2fa-sign-up modal');
 				console.log(event.detail.imageUrl);
 			});
