@@ -1,4 +1,4 @@
-<div id="signup-second-factor" class="modal">
+<div id="signup-second-factor">
 	<style>
 		.modal__signup__2fa {
 			background-color: white;
@@ -17,26 +17,43 @@
 		}
 	</style>
 
-	<div id="modal__sign-up__2fa" class="modal__signup__2fa mdc-elevation--z12">
-		<img id="qrcode" alt="qrcode">
-		<form class="modal__signup__2fa__form" id="submit-token">
-			<div class="mdc-text-field
-									mdc-text-field--outlined
-									mdc-text-field--no-label">
-			  <input class="mdc-text-field__input" type="number"
-			  			 aria-label="Label" placeholder="6 digit code"
-			  			 name="token">
-			  <span class="mdc-notched-outline">
-			    <span class="mdc-notched-outline__leading"></span>
-			    <span class="mdc-notched-outline__trailing"></span>
-			  </span>
-			</div>
+	<div class="scrimmed"></div>
 
-			<button class="mdc-button mdc-button--unelevated">
-				<span class="mdc-button__ripple"></span>submit
-			</button>
-		</form>
+	<div class="modal">
+		<div id="modal__sign-up__2fa" class="modal__signup__2fa mdc-elevation--z12">
+			<img id="qrcode" alt="qrcode">
+			<form class="modal__signup__2fa__form" id="submit-token">
+				<div class="mdc-text-field
+										mdc-text-field--outlined
+										mdc-text-field--no-label">
+				  <input class="mdc-text-field__input" type="number"
+				  			 aria-label="Label" placeholder="6 digit code"
+				  			 name="token">
+				  <span class="mdc-notched-outline">
+				    <span class="mdc-notched-outline__leading"></span>
+				    <span class="mdc-notched-outline__trailing"></span>
+				  </span>
+				</div>
+
+				<button class="mdc-button mdc-button--unelevated">
+					<span class="mdc-button__ripple"></span>submit
+				</button>
+			</form>
+		</div>
+
+		<div id="status"></div>
+
+		<script>
+			(function(){
+				const modal = document.querySelector('#signup-second-factor');
+
+				modal.querySelector('form').onsubmit = event => {
+					event.preventDefault();
+					console.log('submit 2fa 6 digit auth token');
+					const signInEvent = new CustomEvent('signIn', {detail: {sessionId: 'foobar'}});
+					window.dispatchEvent(signInEvent);
+				};
+			})();
+		</script>
 	</div>
-
-	<!-- <div id="status"></div> -->
 </div>
