@@ -1,4 +1,4 @@
-<div id="signin-first-factor" class="modal">
+<div id="signin-first-factor">
 	<style>
 		.modal__signin {
 			background-color: white;
@@ -17,77 +17,81 @@
 		}
 	</style>
 
-	<div class="modal__signin mdc-elevation--z12">
-		<form class="modal__signin__form">
-			<div class="mdc-text-field
-									mdc-text-field--outlined
-									mdc-text-field--no-label">
-			  <input class="mdc-text-field__input" type="text"
-			  			 aria-label="Label" placeholder="username"
-			  			 name="username" value="admin"
-			  			 autocomplete="username">
-			  <span class="mdc-notched-outline">
-			    <span class="mdc-notched-outline__leading"></span>
-			    <span class="mdc-notched-outline__trailing"></span>
-			  </span>
-			</div>
+	<div class="scrimmed"></div>
 
-			<div class="mdc-text-field
-									mdc-text-field--outlined
-									mdc-text-field--no-label">
-			  <input class="mdc-text-field__input" type="password"
-			  			 aria-label="Label" placeholder="password"
-			  			 name="password" value="$trongp@ssw0rd"
-			  			 autocomplete="password">
-			  <span class="mdc-notched-outline">
-			    <span class="mdc-notched-outline__leading"></span>
-			    <span class="mdc-notched-outline__trailing"></span>
-			  </span>
-			</div>
+	<div class="modal">
+		<div class="modal__signin mdc-elevation--z12">
+			<form class="modal__signin__form">
+				<div class="mdc-text-field
+										mdc-text-field--outlined
+										mdc-text-field--no-label">
+				  <input class="mdc-text-field__input" type="text"
+				  			 aria-label="Label" placeholder="username"
+				  			 name="username" value="admin"
+				  			 autocomplete="username">
+				  <span class="mdc-notched-outline">
+				    <span class="mdc-notched-outline__leading"></span>
+				    <span class="mdc-notched-outline__trailing"></span>
+				  </span>
+				</div>
 
-			<button type="submit" class="mdc-button mdc-button--unelevated">
-				<span class="mdc-button__ripple"></span>sign-in
+				<div class="mdc-text-field
+										mdc-text-field--outlined
+										mdc-text-field--no-label">
+				  <input class="mdc-text-field__input" type="password"
+				  			 aria-label="Label" placeholder="password"
+				  			 name="password" value="$trongp@ssw0rd"
+				  			 autocomplete="password">
+				  <span class="mdc-notched-outline">
+				    <span class="mdc-notched-outline__leading"></span>
+				    <span class="mdc-notched-outline__trailing"></span>
+				  </span>
+				</div>
+
+				<button type="submit" class="mdc-button mdc-button--unelevated">
+					<span class="mdc-button__ripple"></span>sign-in
+				</button>
+			</form>
+
+			<button type="cancel" class="mdc-button">
+				<span class="mdc-button__ripple"></span>sign-up
 			</button>
-		</form>
+		</div>
 
-		<button type="cancel" class="mdc-button">
-			<span class="mdc-button__ripple"></span>sign-up
-		</button>
-	</div>
+		<div id="status"></div>
 
-	<div id="status"></div>
+		<script>
+			(function(){
+				const modal = document.querySelector('#signin-first-factor');
 
-	<script>
-		(function(){
-			const modal = document.querySelector('#signin-first-factor');
-
-			modal.querySelector('form').onsubmit = event => {
-				event.preventDefault();
-				console.log('submit user credentials');
-				const username = event.target.elements.username.value;
-				const password = event.target.elements.password.value;
-				const options = {
-					method: 'post',
-					headers: {
-						'Content-Type': 'application/json',
-			    },
-					body: JSON.stringify({username, password}),
+				modal.querySelector('form').onsubmit = event => {
+					event.preventDefault();
+					console.log('submit user credentials');
+					const username = event.target.elements.username.value;
+					const password = event.target.elements.password.value;
+					const options = {
+						method: 'post',
+						headers: {
+							'Content-Type': 'application/json',
+				    },
+						body: JSON.stringify({username, password}),
+					};
+					fetch('/api/auth/1fa', options)
+					.then(res => res.json())
+					.then(json => handleJsonError(json))
+					.then(json => {
+						const signInEvent = new CustomEvent('signIn', {detail: {sessionId: 'foobar'}});
+						window.dispatchEvent(signInEvent);
+					})
+					.catch(err => console.error(err));
 				};
-				fetch('/api/auth/1fa', options)
-				.then(res => res.json())
-				.then(json => handleJsonError(json))
-				.then(json => {
-					const signInEvent = new CustomEvent('signIn', {detail: {sessionId: 'foobar'}});
-					window.dispatchEvent(signInEvent);
-				})
-				.catch(err => console.error(err));
-			};
 
-			modal.querySelector('button[type=cancel]').onclick = event => {
-				console.log('hide signin-first-factor modal');
-				const cancelEvent = new Event('cancel-signin-first-factor');
-				window.dispatchEvent(cancelEvent);
-			};
-		})();
-	</script>
+				modal.querySelector('button[type=cancel]').onclick = event => {
+					console.log('hide signin-first-factor modal');
+					const cancelEvent = new Event('cancel-signin-first-factor');
+					window.dispatchEvent(cancelEvent);
+				};
+			})();
+		</script>
+	</div>
 </div>
