@@ -1,4 +1,22 @@
 <div id="modal" class="modal">
+	<style>
+		.modal__signup {
+			background-color: white;
+			border-radius: .5em;
+			padding: 1em;
+			display: flex;
+			flex-direction: column;
+			height: 33%;
+		}
+
+		.modal__signup__form {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-evenly;
+			height: 100%;
+		}
+	</style>
+
 	<div class="modal__signup mdc-elevation--z12">
 		<form class="modal__signup__form">
 			<div class="mdc-text-field
@@ -51,36 +69,36 @@
 	</div>
 
 	<div id="status"></div>
-</div>
 
-<script>
-	const modal = document.querySelector('#modal');
+	<script>
+		const modal = document.querySelector('#modal');
 
-	modal.querySelector('form').onsubmit = event => {
-		event.preventDefault();
-		console.log('submit new user credentials');
-		const username = event.target.elements.username.value;
-		const password = event.target.elements.password.value;
-		const options = {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json',
-	    },
-			body: JSON.stringify({username, password}),
+		modal.querySelector('form').onsubmit = event => {
+			event.preventDefault();
+			console.log('submit new user credentials');
+			const username = event.target.elements.username.value;
+			const password = event.target.elements.password.value;
+			const options = {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json',
+		    },
+				body: JSON.stringify({username, password}),
+			};
+			fetch('/api/auth/1fa', options)
+			.then(res => res.json())
+			.then(json => handleJsonError(json))
+			.then(json => {
+				const signUpEvent = new CustomEvent('sign-up', {detail: {imageUrl: json.imageUrl}});
+				window.dispatchEvent(signUpEvent);
+			})
+			.catch(err => console.error(err));
 		};
-		fetch('/api/auth/1fa', options)
-		.then(res => res.json())
-		.then(json => handleJsonError(json))
-		.then(json => {
-			const signUpEvent = new CustomEvent('sign-up', {detail: {imageUrl: json.imageUrl}});
-			window.dispatchEvent(signUpEvent);
-		})
-		.catch(err => console.error(err));
-	};
 
-	modal.querySelector('[cancel]').onclick = event => {
-		console.log('hide 1fa-signup modal');
-		const showSignInEvent = new Event('show__sign-in', {foo: 'bar'});
-		window.dispatchEvent(showSignInEvent);
-	};
-</script>
+		modal.querySelector('[cancel]').onclick = event => {
+			console.log('hide 1fa-signup modal');
+			const showSignInEvent = new Event('show__sign-in', {foo: 'bar'});
+			window.dispatchEvent(showSignInEvent);
+		};
+	</script>
+</div>
