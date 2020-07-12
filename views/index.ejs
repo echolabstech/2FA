@@ -16,12 +16,6 @@
 			<%- include('modal/1fa-signup'); %>
 
 			<template>
-				<div class="foo">
-					<script>
-						console.log('foo');
-					</script>
-				</div>
-
 				<%- include('modal/2fa-signup'); %>
 
 				<%- include('modal/1fa-signin'); %>
@@ -43,17 +37,11 @@
 		<script src="otplib-preset-browser@^12.0.0-buffer.js"></script>
 		<script src="otplib-preset-browser@^12.0.0-index.js"></script>
 		<script type="text/javascript">
-			const root = document.querySelector('#root');
+			// const root = document.querySelector('#root');
 
-			const firstFactorSignUpModal = root.querySelector('#modal__sign-up__1fa');
-			firstFactorSignUpModal.querySelector('form').onsubmit = submitSignup;
-			firstFactorSignUpModal.querySelector('[cancel]').onclick = event => {
-				console.log('hide firstFactorSignUpModal');
-				console.log('show firstFactorSignInModal');
-				const template = root.querySelector('template');
-				const clone = template.content.cloneNode(true);
-				root.appendChild(clone);
-			};
+			// const template = root.querySelector('template');
+			// const clone = template.content.cloneNode(true);
+			// root.appendChild(clone);
 
 			// const signupFromSigninModal = root.querySelector('#show__signup-modal');
 			// signupFromSigninModal.onclick = showSignupModal;
@@ -73,14 +61,6 @@
 
 			function showSigninHandler(event) {
 
-			}
-
-			function submitSignup(event) {
-				event.preventDefault();
-				console.log('submit new user registration credentials');
-				console.log('on success response, hide modal');
-				console.log('show Second Factor Modal');
-				// showSecondFactorModal();
 			}
 
 			function showSecondFactorModal() {

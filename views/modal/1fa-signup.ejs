@@ -1,12 +1,13 @@
-<div class="modal">
-	<div id="modal__sign-up__1fa" class="modal__signup mdc-elevation--z12">
+<div id="modal" class="modal">
+	<div class="modal__signup mdc-elevation--z12">
 		<form class="modal__signup__form">
 			<div class="mdc-text-field
 									mdc-text-field--outlined
 									mdc-text-field--no-label">
 			  <input class="mdc-text-field__input" type="text"
 			  			 aria-label="Label" placeholder="username"
-			  			 name="username" value="admin">
+			  			 name="username" value="admin"
+			  			 autocomplete="username">
 			  <span class="mdc-notched-outline">
 			    <span class="mdc-notched-outline__leading"></span>
 			    <span class="mdc-notched-outline__trailing"></span>
@@ -18,7 +19,8 @@
 									mdc-text-field--no-label">
 			  <input class="mdc-text-field__input" type="password"
 			  			 aria-label="Label" placeholder="password"
-			  			 name="password" value="$trongp@ssw0rd">
+			  			 name="password" value="$trongp@ssw0rd"
+			  			 autocomplete="new-password">
 			  <span class="mdc-notched-outline">
 			    <span class="mdc-notched-outline__leading"></span>
 			    <span class="mdc-notched-outline__trailing"></span>
@@ -30,7 +32,8 @@
 									mdc-text-field--no-label">
 			  <input class="mdc-text-field__input" type="password"
 			  			 aria-label="Label" placeholder="confirm password"
-			  			 name="confirm-password" value="$trongp@ssw0rd">
+			  			 name="confirm-password" value="$trongp@ssw0rd"
+			  			 autocomplete="new-password">
 			  <span class="mdc-notched-outline">
 			    <span class="mdc-notched-outline__leading"></span>
 			    <span class="mdc-notched-outline__trailing"></span>
@@ -47,5 +50,21 @@
 		</button>
 	</div>
 
-	<!-- <div id="status"></div> -->
+	<div id="status"></div>
 </div>
+
+<script>
+	const modal = document.querySelector('#modal');
+
+	modal.querySelector('form').onsubmit = event => {
+		event.preventDefault();
+		console.log('submit new user registration credentials');
+		console.log('on success response, hide modal');
+		console.log('show Second Factor Modal');
+	};
+
+	modal.querySelector('[cancel]').onclick = event => {
+		console.log('hide modal');
+		console.log('emit event stating that this modal has been hidden');
+	};
+</script>
