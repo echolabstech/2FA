@@ -15,9 +15,17 @@
 
 			<%- include('modal/1fa-signup'); %>
 
-			<%- include('modal/2fa-signup'); %>
+			<template>
+				<div class="foo">
+					<script>
+						console.log('foo');
+					</script>
+				</div>
 
-			<%- include('modal/1fa-signin'); %>
+				<%- include('modal/2fa-signup'); %>
+
+				<%- include('modal/1fa-signin'); %>
+			</template>
 
 			<div class="content">
 				<span class="content__col">
@@ -42,6 +50,9 @@
 			firstFactorSignUpModal.querySelector('[cancel]').onclick = event => {
 				console.log('hide firstFactorSignUpModal');
 				console.log('show firstFactorSignInModal');
+				const template = root.querySelector('template');
+				const clone = template.content.cloneNode(true);
+				root.appendChild(clone);
 			};
 
 			// const signupFromSigninModal = root.querySelector('#show__signup-modal');
