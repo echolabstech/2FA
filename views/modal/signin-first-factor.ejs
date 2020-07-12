@@ -1,12 +1,13 @@
-<div class="modal">
-	<div id="modal__sign-in" class="modal__signin mdc-elevation--z12">
+<div id="signin-first-factor" class="modal">
+	<div class="modal__signin mdc-elevation--z12">
 		<form class="modal__signin__form" id="first-factor">
 			<div class="mdc-text-field
 									mdc-text-field--outlined
 									mdc-text-field--no-label">
 			  <input class="mdc-text-field__input" type="text"
 			  			 aria-label="Label" placeholder="username"
-			  			 name="username" value="admin">
+			  			 name="username" value="admin"
+			  			 autocomplete="username">
 			  <span class="mdc-notched-outline">
 			    <span class="mdc-notched-outline__leading"></span>
 			    <span class="mdc-notched-outline__trailing"></span>
@@ -18,7 +19,8 @@
 									mdc-text-field--no-label">
 			  <input class="mdc-text-field__input" type="password"
 			  			 aria-label="Label" placeholder="password"
-			  			 name="password" value="$trongp@ssw0rd">
+			  			 name="password" value="$trongp@ssw0rd"
+			  			 autocomplete="password">
 			  <span class="mdc-notched-outline">
 			    <span class="mdc-notched-outline__leading"></span>
 			    <span class="mdc-notched-outline__trailing"></span>
