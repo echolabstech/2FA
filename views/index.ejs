@@ -15,12 +15,6 @@
 
 			<%- include('modal/1fa-signup'); %>
 
-			<template>
-				<%- include('modal/2fa-signup'); %>
-
-				<%- include('modal/1fa-signin'); %>
-			</template>
-
 			<div class="content">
 				<span class="content__col">
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum ducimus accusantium magnam sit? Architecto quod nemo molestiae ex, sapiente quasi adipisci eligendi non. Odio porro eum, voluptates illum debitis eius.</p>
@@ -34,10 +28,21 @@
 			</div>
 		</div>
 
+		<template>
+		  <div class="foo"></div>
+			<%- include('modal/2fa-signup'); %>
+
+			<%- include('modal/1fa-signin'); %>
+		</template>
+
 		<script src="otplib-preset-browser@^12.0.0-buffer.js"></script>
 		<script src="otplib-preset-browser@^12.0.0-index.js"></script>
 		<script type="text/javascript">
 			const root = document.querySelector('#root');
+
+			var template = document.querySelector('template');
+	    var foo = template.content.querySelector('.foo');
+	    root.appendChild(foo);
 
 			window.addEventListener('sign-up', event => {
 				console.log('append 1fa-signup modal to template');
