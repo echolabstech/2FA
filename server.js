@@ -18,10 +18,10 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json({type: 'application/json'}));
 app.use(express.static('public'));
 
-app.set('view engine', 'hbs');
+app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-	res.render('index');
+	res.render('index', {foo: 'bar'});
 });
 
 app.post('/api/auth/1fa', (req, res) => {
