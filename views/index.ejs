@@ -37,8 +37,13 @@
 		<script src="otplib-preset-browser@^12.0.0-buffer.js"></script>
 		<script src="otplib-preset-browser@^12.0.0-index.js"></script>
 		<script type="text/javascript">
+			const root = document.querySelector('#root');
+
 			window.addEventListener('sign-up', event => {
-				console.log('show 2fa-signup modal');
+				console.log('append 1fa-signup modal to template');
+				console.log('remove 1fa-signup modal from root');
+				console.log('append 2fa-signup modal to root root');
+				console.log('remove 1fa-signup modal from template');
 			});
 
 			window.addEventListener('show__sign-in', event => {
