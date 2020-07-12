@@ -57,7 +57,7 @@
 						</button>
 					</form>
 
-					<button id="show__signin" class="mdc-button">
+					<button cancel action="show" target="modal" target-name="sign-in" class="mdc-button">
 						<span class="mdc-button__ripple"></span>sign-in
 					</button>
 				</div>
@@ -148,8 +148,12 @@
 		<script type="text/javascript">
 			const root = document.querySelector('#root');
 
-			const firstFactorSignupModal = root.querySelector('#modal__sign-up__1fa');
-			firstFactorSignupModal.querySelector('form').onsubmit = submitSignup;
+			const firstFactorSignUpModal = root.querySelector('#modal__sign-up__1fa');
+			firstFactorSignUpModal.querySelector('form').onsubmit = submitSignup;
+			firstFactorSignUpModal.querySelector('[cancel]').onclick = event => {
+				console.log('hide firstFactorSignUpModal');
+				console.log('show firstFactorSignInModal');
+			};
 
 			// const signupFromSigninModal = root.querySelector('#show__signup-modal');
 			// signupFromSigninModal.onclick = showSignupModal;
@@ -166,6 +170,10 @@
 			// const signupModal = root.querySelector('#modal__sign-up');
 			// const signinModal = root.querySelector('#modal__sign-in');
 			// const secondFactorModal = root.querySelector('#modal__sign-up__2fa');
+
+			function showSigninHandler(event) {
+
+			}
 
 			function submitSignup(event) {
 				event.preventDefault();
