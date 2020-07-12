@@ -58,12 +58,12 @@
 			  </span>
 			</div>
 
-			<button class="mdc-button mdc-button--unelevated">
+			<button type="submit" class="mdc-button mdc-button--unelevated">
 				<span class="mdc-button__ripple"></span>sign-up
 			</button>
 		</form>
 
-		<button cancel action="show" target="modal" target-name="sign-in" class="mdc-button">
+		<button type="cancel" class="mdc-button">
 			<span class="mdc-button__ripple"></span>sign-in
 		</button>
 	</div>
@@ -95,9 +95,9 @@
 			.catch(err => console.error(err));
 		};
 
-		modal.querySelector('[cancel]').onclick = event => {
-			console.log('hide 1fa-signup modal');
-			const showSignInEvent = new Event('show__sign-in', {foo: 'bar'});
+		modal.querySelector('button[type=cancel]').onclick = event => {
+			console.log('hide signup-first-factor modal');
+			const showSignInEvent = new Event('cancel-signup-first-factor');
 			window.dispatchEvent(showSignInEvent);
 		};
 	</script>

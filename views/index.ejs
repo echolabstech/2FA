@@ -31,8 +31,7 @@
 		<template>
 		  <div class="foo"></div>
 			<%- include('modal/signup-second-factor'); %>
-
-			<%- include('modal/1fa-signin'); %>
+			<%- include('modal/signin-first-factor'); %>
 		</template>
 
 		<script src="otplib-preset-browser@^12.0.0-buffer.js"></script>
@@ -49,8 +48,11 @@
 				signupFirstFactor.replaceWith(signupSecondFactor);
 			});
 
-			window.addEventListener('show__sign-in', event => {
-				console.log('show 1fa-signin modal');
+			window.addEventListener('cancel-signup-first-factor', event => {
+				console.log('show signin-first-factor modal');
+		    const signupFirstFactor = root.querySelector('#signup-first-factor');
+				const signinFirstFactor = template.content.querySelector('#signin-first-factor');
+				signupFirstFactor.replaceWith(signinFirstFactor);
 			});
 			// const root = document.querySelector('#root');
 
