@@ -37,11 +37,4 @@
 			const signupFirstFactor = template.content.querySelector('#signup-first-factor');
 			root.prepend(signupFirstFactor);
 		});
-
-		function handleJsonError(json) {
-			if (!json.err) {
-				return json;
-			}
-			throw new Error(json.err);
-		}
 	</script>
