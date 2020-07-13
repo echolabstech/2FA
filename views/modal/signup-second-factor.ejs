@@ -21,9 +21,9 @@
 	<div class="scrimmed"></div>
 
 	<div class="modal">
-		<div id="modal__sign-up__2fa" class="modal__signup__2fa mdc-elevation--z12">
+		<div class="modal__signup__2fa mdc-elevation--z12">
 			<img id="qrcode" alt="qrcode">
-			<form class="modal__signup__2fa__form" id="submit-token">
+			<form class="modal__signup__2fa__form">
 				<div class="mdc-text-field
 										mdc-text-field--outlined
 										mdc-text-field--no-label">
@@ -51,8 +51,22 @@
 				modal.querySelector('form').onsubmit = event => {
 					event.preventDefault();
 					console.log('submit 2fa 6 digit auth token');
-					const signInEvent = new CustomEvent('signUp-2fa', {detail: {sessionId: 'foobar'}});
+					const token = event.target.token.value;
+					const options = {
+						method: 'post',
+						headers: {
+							'Content-Type': 'application/json',
+				    },
+						body: JSON.stringify({token}),
+					};
+					fetch('/api/signup/2fa', options)
+					.then(res => res.json())
+					.then(json => handleJsonError(json))
+					.then(json => {
+						const signInEvent = new CustomEvent('signUp-2fa', {detail: {sessionId: 'foobar'}});
 					window.dispatchEvent(signInEvent);
+					})
+					.catch(err => console.error(err));
 				};
 			})();
 		</script>
