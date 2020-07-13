@@ -61,7 +61,9 @@
 			});
 
 			window.addEventListener('signIn', event => {
-				console.log('first factor signIn done');
+				console.log('Save sessionID to cookie and hide modal.');
+				const signinFirstFactor = root.querySelector('#signin-first-factor');
+				template.content.appendChild(signinFirstFactor);
 			});
 
 			window.addEventListener('cancel-signin-first-factor', event => {
