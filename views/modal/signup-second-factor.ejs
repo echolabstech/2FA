@@ -63,7 +63,7 @@
 					.then(res => res.json())
 					.then(json => handleJsonError(json))
 					.then(json => {
-						const signInEvent = new CustomEvent('signUp-2fa', {detail: {sessionId: 'foobar'}});
+						const signInEvent = new CustomEvent('signUp-2fa', {detail: {sessionID: json.sessionID}});
 					window.dispatchEvent(signInEvent);
 					})
 					.catch(err => console.error(err));

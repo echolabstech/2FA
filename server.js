@@ -6,6 +6,7 @@ const qrcode = require('qrcode');
 
 const secret = 'NQ4RORLIG5ETMCIE';
 const service = 'MS3 2FA Demo';
+const sessionID = 1;
 const corsOptions = {
 	origin: '*',
 	optionsSuccessStatus: 200,
@@ -52,7 +53,7 @@ app.post('/api/signup/2fa', (req, res) => {
 	}
 
 	if (tokenIsValid) {
-		res.json({htmlText: 'success!'});
+		res.json({sessionID});
 	} else {
 		res.json({err: 'invalid token'});
 	}
