@@ -4,6 +4,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const qrcode = require('qrcode');
 
+const secret = 'NQ4RORLIG5ETMCIE';
+const service = 'MS3 2FA Demo';
 const corsOptions = {
 	origin: '*',
 	optionsSuccessStatus: 200,
@@ -22,6 +24,19 @@ app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
 	res.render('index');
+});
+
+app.post('/api/signup/1fa', (req, res) => {
+	const {username, password} = req.body;
+	// const secret = otplib.authenticator.generateSecret();
+	const otpauth = otplib.authenticator.keyuri(username, service, secret);
+	qrcode.toDataURL(otpauth, (err, imageUrl) => {
+	  if (err) {
+	    res.json({err});
+	  } else {
+			res.json({imageUrl});
+	  }
+	});
 });
 
 app.post('/api/auth/1fa', (req, res) => {
