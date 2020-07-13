@@ -2,7 +2,8 @@
 		const root = document.querySelector('#root');
 		const template = document.querySelector('template');
 
-		window.addEventListener('sign-up', event => {
+		window.addEventListener('signUp-1fa', event => {
+			console.log('user credentials accepted and qrcode imageURL received');
 			const signupSecondFactor = template.content.querySelector('#signup-second-factor');
 			signupSecondFactor.getElementsByTagName('img').qrcode.src = event.detail.imageUrl;
 

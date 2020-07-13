@@ -91,11 +91,11 @@
 				    },
 						body: JSON.stringify({username, password}),
 					};
-					fetch('/api/auth/1fa', options)
+					fetch('/api/signup/1fa', options)
 					.then(res => res.json())
 					.then(json => handleJsonError(json))
 					.then(json => {
-						const signUpEvent = new CustomEvent('sign-up', {detail: {imageUrl: json.imageUrl}});
+						const signUpEvent = new CustomEvent('signUp-1fa', {detail: {imageUrl: json.imageUrl}});
 						window.dispatchEvent(signUpEvent);
 					})
 					.catch(err => console.error(err));
