@@ -1,0 +1,153 @@
+	<script type="text/javascript">
+		const root = document.querySelector('#root');
+		const template = document.querySelector('template');
+
+		window.addEventListener('sign-up', event => {
+			const signupSecondFactor = template.content.querySelector('#signup-second-factor');
+			signupSecondFactor.getElementsByTagName('img').qrcode.src = event.detail.imageUrl;
+
+	    const signupFirstFactor = root.querySelector('#signup-first-factor');
+			signupFirstFactor.replaceWith(signupSecondFactor);
+		});
+
+		window.addEventListener('cancel-signup-first-factor', event => {
+			console.log('show signin-first-factor modal');
+	    const signupFirstFactor = root.querySelector('#signup-first-factor');
+			template.content.appendChild(signupFirstFactor);
+			const signinFirstFactor = template.content.querySelector('#signin-first-factor');
+			root.prepend(signinFirstFactor);
+		});
+
+		window.addEventListener('signUp-2fa', event => {
+			console.log('signUp-2fa successful. save sessionID and continue.');
+			const signupSecondFactor = root.querySelector('#signup-second-factor');
+			template.content.appendChild(signupSecondFactor);
+		});
+
+		window.addEventListener('signIn', event => {
+			console.log('Save sessionID to cookie and hide modal.');
+			const signinFirstFactor = root.querySelector('#signin-first-factor');
+			template.content.appendChild(signinFirstFactor);
+		});
+
+		window.addEventListener('cancel-signin-first-factor', event => {
+			console.log('show signup-first-factor modal');
+	    const signinFirstFactor = root.querySelector('#signin-first-factor');
+	    template.content.appendChild(signinFirstFactor);
+			const signupFirstFactor = template.content.querySelector('#signup-first-factor');
+			root.prepend(signupFirstFactor);
+		});
+
+		// const root = document.querySelector('#root');
+
+		// const template = root.querySelector('template');
+		// const clone = template.content.cloneNode(true);
+		// root.appendChild(clone);
+
+		// const signupFromSigninModal = root.querySelector('#show__signup-modal');
+		// signupFromSigninModal.onclick = showSignupModal;
+
+		// const signupFromSignupModal = root.querySelector('#show__2fa-modal');
+		// signupFromSignupModal.onclick = submitSignup;
+
+		// const submitToken = root.querySelector('#submit-token');
+		// submitToken.onsubmit = submitSecondFactor;
+
+		// const signinFromSignupModal = root.querySelector('#show__signin-modal');
+		// signinFromSignupModal.onclick = showSigninModal;
+
+		// const signupModal = root.querySelector('#modal__sign-up');
+		// const signinModal = root.querySelector('#modal__sign-in');
+		// const secondFactorModal = root.querySelector('#modal__sign-up__2fa');
+
+		function showSigninHandler(event) {
+
+		}
+
+		function showSecondFactorModal() {
+			let classes = signupModal.className.split(' ');
+			classes.push('hide');
+			signupModal.className = classes.join(' ');
+
+			classes = secondFactorModal.className.split(' ');
+			classes = classes.filter(classs => {return classs !== 'hide'});
+			secondFactorModal.className = classes.join(' ');
+		}
+
+		function showSigninModal(event) {
+			event.preventDefault();
+			let classes = signupModal.className.split(' ');
+			classes.push('hide');
+			signupModal.className = classes.join(' ');
+
+			classes = signinModal.className.split(' ');
+			classes = classes.filter(classs => {return classs !== 'hide'});
+			signinModal.className = classes.join(' ');
+		}
+
+		function showSignupModal(event) {
+			event.preventDefault();
+			let classes = signinModal.className.split(' ');
+			classes.push('hide');
+			signinModal.className = classes.join(' ');
+
+			classes = signupModal.className.split(' ');
+			classes = classes.filter(classs => {return classs !== 'hide'});
+			signupModal.className = classes.join(' ');
+		}
+
+		function submitSecondFactor(event) {
+			event.preventDefault();
+			debugger;
+			// updateStatus('loading...', 'info');
+			// const token = event.target.elements.token.value;
+			// const secret = event.target.elements.secret.value;
+			// if (!validateToken(token, secret)) return updateStatus('invalid token', 'error');
+			// const options = {
+			// 	method: 'post',
+			// 	headers: {
+			// 		'Content-Type': 'application/json',
+		 //    },
+			// 	body: JSON.stringify({token, secret}),
+			// };
+			// fetch('/api/auth/2fa', options)
+			// .then(res => res.json())
+			// .then(json => handleJsonError(json))
+			// .then(json => updateStatus(json.htmlText, 'success'))
+			// .catch(err => updateStatus(err, 'error'));
+		}
+
+		function updateStatus(text, styleClass) {
+			if (styleClass === 'error') {
+				status.style.color = 'orangered';
+			} else if (styleClass === 'success') {
+				status.style.color = 'darkseagreen';
+			} else if (styleClass == 'info') {
+				status.style.color = 'dodgerblue';
+			}
+			status.innerText = text;
+		}
+
+		function validateToken(token, secret) {
+			return otplib.authenticator.check(token, secret);
+		}
+
+		function showQRCode(imageUrl) {
+			const qrcode = document.querySelector('#qrcode');
+			qrcode.src = imageUrl;
+			qrcode.removeAttribute('hidden');
+		}
+
+		function show2FAForm(secret) {
+			const form = document.querySelector('#second-factor');
+			form.elements.secret.value = secret;
+			form.removeAttribute('hidden');
+		}
+
+		function handleJsonError(json) {
+			if (!json.err) {
+				return json;
+			}
+			throw new Error(json.err);
+		}
+	</script>
