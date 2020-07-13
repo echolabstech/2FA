@@ -1,21 +1,10 @@
 <div id="signup-first-factor">
-	<style>
-		.modal__signup {
-			background-color: white;
-			border-radius: .5em;
-			padding: 1em;
-			display: flex;
-			flex-direction: column;
-			height: 33%;
-		}
-
-		.modal__signup__form {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-evenly;
-			height: 100%;
-		}
-	</style>
+	<link rel="stylesheet" href="reset.css">
+	<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="index.css">
+	<%- include('style.ejs')%>
 
 	<div class="scrimmed"></div>
 
@@ -74,37 +63,35 @@
 		<div id="status"></div>
 
 		<script>
-			(function() {
-				const modal = document.querySelector('#signup-first-factor');
+			const modal = rootShadow.querySelector('#signup-first-factor');
 
-				modal.querySelector('form').onsubmit = event => {
-					event.preventDefault();
-					console.log('submit new user credentials');
-					const username = event.target.elements.username.value;
-					const password = event.target.elements.password.value;
-					const options = {
-						method: 'post',
-						headers: {
-							'Content-Type': 'application/json',
-				    },
-						body: JSON.stringify({username, password}),
-					};
-					fetch('/api/auth/1fa', options)
-					.then(res => res.json())
-					.then(json => handleJsonError(json))
-					.then(json => {
-						const signUpEvent = new CustomEvent('sign-up', {detail: {imageUrl: json.imageUrl}});
-						window.dispatchEvent(signUpEvent);
-					})
-					.catch(err => console.error(err));
+			modal.querySelector('form').onsubmit = event => {
+				event.preventDefault();
+				console.log('submit new user credentials');
+				const username = event.target.elements.username.value;
+				const password = event.target.elements.password.value;
+				const options = {
+					method: 'post',
+					headers: {
+						'Content-Type': 'application/json',
+			    },
+					body: JSON.stringify({username, password}),
 				};
+				fetch('/api/auth/1fa', options)
+				.then(res => res.json())
+				.then(json => handleJsonError(json))
+				.then(json => {
+					const signUpEvent = new CustomEvent('sign-up', {detail: {imageUrl: json.imageUrl}});
+					window.dispatchEvent(signUpEvent);
+				})
+				.catch(err => console.error(err));
+			};
 
-				modal.querySelector('button[type=cancel]').onclick = event => {
-					console.log('hide signup-first-factor modal');
-					const showSignInEvent = new Event('cancel-signup-first-factor');
-					window.dispatchEvent(showSignInEvent);
-				};
-			})();
+			modal.querySelector('button[type=cancel]').onclick = event => {
+				console.log('hide signup-first-factor modal');
+				const showSignInEvent = new Event('cancel-signup-first-factor');
+				window.dispatchEvent(showSignInEvent);
+			};
 		</script>
 	</div>
 </div>

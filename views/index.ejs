@@ -11,7 +11,6 @@
 </head>
 	<body>
 		<div id="root" class="root">
-			<%- include('modal/signup-first-factor'); %>
 
 			<div class="content">
 				<span class="content__col">
@@ -28,6 +27,7 @@
 
 		<template>
 		  <div class="foo"></div>
+			<%- include('modal/signup-first-factor'); %>
 			<%- include('modal/signup-second-factor'); %>
 			<%- include('modal/signin-first-factor'); %>
 		</template>
@@ -36,27 +36,31 @@
 		<script src="otplib-preset-browser@^12.0.0-index.js"></script>
 		<script type="text/javascript">
 			const root = document.querySelector('#root');
+			const rootShadow = root.attachShadow({mode: 'open'});
 			const template = document.querySelector('template');
+
+			const signupFirstFactor = template.content.querySelector('#signup-first-factor');
+			rootShadow.appendChild(signupFirstFactor);
 
 			window.addEventListener('sign-up', event => {
 				const signupSecondFactor = template.content.querySelector('#signup-second-factor');
 				signupSecondFactor.getElementsByTagName('img').qrcode.src = event.detail.imageUrl;
 
-		    const signupFirstFactor = root.querySelector('#signup-first-factor');
+		    const signupFirstFactor = rootShadow.querySelector('#signup-first-factor');
 				signupFirstFactor.replaceWith(signupSecondFactor);
 			});
 
 			window.addEventListener('cancel-signup-first-factor', event => {
 				console.log('show signin-first-factor modal');
-		    const signupFirstFactor = root.querySelector('#signup-first-factor');
+		    const signupFirstFactor = rootShadow.querySelector('#signup-first-factor');
 				template.content.appendChild(signupFirstFactor);
 				const signinFirstFactor = template.content.querySelector('#signin-first-factor');
-				root.prepend(signinFirstFactor);
+				rootShadow.prepend(signinFirstFactor);
 			});
 
 			window.addEventListener('signUp-2fa', event => {
 				console.log('signUp-2fa successful. save sessionID and continue.');
-				const signupSecondFactor = root.querySelector('#signup-second-factor');
+				const signupSecondFactor = rootShadow.querySelector('#signup-second-factor');
 				template.content.appendChild(signupSecondFactor);
 			});
 
@@ -66,10 +70,10 @@
 
 			window.addEventListener('cancel-signin-first-factor', event => {
 				console.log('show signup-first-factor modal');
-		    const signinFirstFactor = root.querySelector('#signin-first-factor');
+		    const signinFirstFactor = rootShadow.querySelector('#signin-first-factor');
 		    template.content.appendChild(signinFirstFactor);
 				const signupFirstFactor = template.content.querySelector('#signup-first-factor');
-				root.prepend(signupFirstFactor);
+				rootShadow.prepend(signupFirstFactor);
 			});
 
 			// const root = document.querySelector('#root');
