@@ -1,0 +1,39 @@
+	<style>
+		.root {
+			height: 100vh;
+			width: 100vw;
+		}
+
+		.content {
+			display: flex;
+			flex-direction: row;
+			height: 100%;
+			flex-wrap: wrap;
+		}
+
+		.content__col {
+			flex: 1 2 20%;
+		}
+
+		.content__col:nth-child(2) {
+			flex: 2 1 60%;
+		}
+
+		.scrimmed {
+			height: 100%;
+			width: 100%;
+			background-color: #F2F2F2;
+			opacity: 85%;
+			position: absolute;
+		}
+
+		.modal {
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+		}
+	</style>
