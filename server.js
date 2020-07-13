@@ -39,6 +39,25 @@ app.post('/api/signup/1fa', (req, res) => {
 	});
 });
 
+app.post('/api/signup/2fa', (req, res) => {
+	const {token} = req.body;
+	let tokenIsValid = false;
+	try {
+	  tokenIsValid = otplib.authenticator.check(token, secret);
+	} catch (err) {
+	  // Possible errors
+	  // - options validation
+	  // - "Invalid input - it is not base32 encoded string" (if thiry-two is used)
+	  console.error(err);
+	}
+
+	if (tokenIsValid) {
+		res.json({htmlText: 'success!'});
+	} else {
+		res.json({err: 'invalid token'});
+	}
+});
+
 app.post('/api/auth/1fa', (req, res) => {
 	const {username, password} = req.body;
 	const service = 'MS3 2FA Demo';
