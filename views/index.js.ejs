@@ -96,27 +96,6 @@
 			signupModal.className = classes.join(' ');
 		}
 
-		function submitSecondFactor(event) {
-			event.preventDefault();
-			debugger;
-			// updateStatus('loading...', 'info');
-			// const token = event.target.elements.token.value;
-			// const secret = event.target.elements.secret.value;
-			// if (!validateToken(token, secret)) return updateStatus('invalid token', 'error');
-			// const options = {
-			// 	method: 'post',
-			// 	headers: {
-			// 		'Content-Type': 'application/json',
-		 //    },
-			// 	body: JSON.stringify({token, secret}),
-			// };
-			// fetch('/api/auth/2fa', options)
-			// .then(res => res.json())
-			// .then(json => handleJsonError(json))
-			// .then(json => updateStatus(json.htmlText, 'success'))
-			// .catch(err => updateStatus(err, 'error'));
-		}
-
 		function updateStatus(text, styleClass) {
 			if (styleClass === 'error') {
 				status.style.color = 'orangered';
@@ -126,10 +105,6 @@
 				status.style.color = 'dodgerblue';
 			}
 			status.innerText = text;
-		}
-
-		function validateToken(token, secret) {
-			return otplib.authenticator.check(token, secret);
 		}
 
 		function showQRCode(imageUrl) {
