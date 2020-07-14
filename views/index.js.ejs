@@ -31,7 +31,11 @@
 			console.log('signUp-2fa successful. notify user and show login modal');
 
 			hideModal(root.querySelector('#signup-second-factor'));
-			showModal(template.content.querySelector('#signin-first-factor'));
+			const signinFirstFactor = template.content.querySelector('#signin-first-factor');
+			const status = signinFirstFactor.querySelector('#status');
+			status.className = status.className.split(' ').concat(['status--success']).join(' ').trim();
+			status.innerText = 'Registration success. Please login.';
+			showModal(signinFirstFactor);
 		});
 
 		window.addEventListener('signIn', event => {
