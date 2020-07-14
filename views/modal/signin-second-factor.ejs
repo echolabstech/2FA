@@ -1,16 +1,16 @@
-<div id="signup-second-factor">
+<div id="signin-second-factor">
 	<%- include('modal.css.ejs'); %>
 	<style>
-		.modal__signup__2fa {
+		.modal__signin-2fa {
 			background-color: white;
 			border-radius: .5em;
 			padding: 1em;
 			display: flex;
 			flex-direction: column;
-			height: 38%;
+			height: 25%;
 		}
 
-		.modal__signup__2fa__form {
+		.modal__signin-2fa__form {
 			display: flex;
 			flex-direction: column;
 			justify-content: space-evenly;
@@ -21,32 +21,30 @@
 	<div class="scrimmed"></div>
 
 	<div class="modal">
-		<div class="modal__signup__2fa mdc-elevation--z12">
-			<img id="qrcode" alt="qrcode">
-			<form class="modal__signup__2fa__form">
+		<div class="modal__signin-2fa mdc-elevation--z12">
+			<div id="status"></div>
+			<form class="modal__signin-2fa__form">
 				<div class="mdc-text-field
 										mdc-text-field--outlined
 										mdc-text-field--no-label">
 				  <input class="mdc-text-field__input" type="number"
 				  			 aria-label="Label" placeholder="6 digit code"
-								 name="token" autocomplete="one-time-code">
+				  			 name="token" autocomplete="one-time-code">
 				  <span class="mdc-notched-outline">
 				    <span class="mdc-notched-outline__leading"></span>
 				    <span class="mdc-notched-outline__trailing"></span>
 				  </span>
 				</div>
 
-				<button class="mdc-button mdc-button--unelevated">
-					<span class="mdc-button__ripple"></span>submit
+				<button type="submit" class="mdc-button mdc-button--unelevated">
+					<span class="mdc-button__ripple"></span>sign-in
 				</button>
 			</form>
 		</div>
 
-		<div id="status"></div>
-
 		<script>
 			(function(){
-				const modal = document.querySelector('#signup-second-factor');
+				const modal = document.querySelector('#signin-second-factor');
 
 				modal.querySelector('form').onsubmit = event => {
 					event.preventDefault();
@@ -59,16 +57,19 @@
 				    },
 						body: JSON.stringify({token}),
 					};
-					fetch('/api/signup/2fa', options)
+					fetch('/api/auth/2fa', options)
 					.then(res => {
-						if (res.status === 201) {
-							const signInEvent = new Event('signUp-2fa');
-							window.dispatchEvent(signInEvent);
+						if (res.status === 200) {
+							return res.json();
 						} else if (res.status === 401) {
 							console.error('invalid token');
 						} else {
 							console.error('error: check server logs');
 						}
+					})
+					.then(json => {
+						const signInEvent = new CustomEvent('signIn-2fa', {detail: {sessionId: json.sessionID}});
+						window.dispatchEvent(signInEvent);
 					})
 					.catch(err => console.error(err));
 				};
