@@ -53,9 +53,9 @@ app.post('/api/signup/2fa', (req, res) => {
 	}
 
 	if (tokenIsValid) {
-		res.json({sessionID});
+		res.sendStatus(201);
 	} else {
-		res.json({err: 'invalid token'});
+		res.sendStatus(401);
 	}
 });
 

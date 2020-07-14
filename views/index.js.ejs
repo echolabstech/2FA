@@ -20,8 +20,7 @@
 		});
 
 		window.addEventListener('signUp-2fa', event => {
-			console.log('signUp-2fa successful. save sessionID and continue.');
-			console.log(event.detail.sessionID);
+			console.log('signUp-2fa successful. notify user and show login modal');
 			const signupSecondFactor = root.querySelector('#signup-second-factor');
 			template.content.appendChild(signupSecondFactor);
 		});

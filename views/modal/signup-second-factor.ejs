@@ -60,11 +60,15 @@
 						body: JSON.stringify({token}),
 					};
 					fetch('/api/signup/2fa', options)
-					.then(res => res.json())
-					.then(json => handleJsonError(json))
-					.then(json => {
-						const signInEvent = new CustomEvent('signUp-2fa', {detail: {sessionID: json.sessionID}});
-					window.dispatchEvent(signInEvent);
+					.then(res => {
+						if (res.status === 201) {
+							const signInEvent = new Event('signUp-2fa');
+							window.dispatchEvent(signInEvent);
+						} else if (res.status === 401) {
+							console.error('invalid token');
+						} else {
+							console.error('error: check server logs');
+						}
 					})
 					.catch(err => console.error(err));
 				};
