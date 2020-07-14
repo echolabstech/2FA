@@ -7,7 +7,7 @@ const qrcode = require('qrcode');
 // const secret = otplib.authenticator.generateSecret();
 const secret = 'NQ4RORLIG5ETMCIE';
 const service = 'MS3 2FA Demo';
-const sessionID = 1;
+const sessionID = 'ab029dk29';
 const corsOptions = {
 	origin: '*',
 	optionsSuccessStatus: 200,
@@ -70,7 +70,7 @@ app.post('/api/auth/1fa', (req, res) => {
 });
 
 app.post('/api/auth/2fa', (req, res) => {
-	const {token, secret} = req.body;
+	const {token} = req.body;
 	let tokenIsValid = false;
 	try {
 	  tokenIsValid = otplib.authenticator.check(token, secret);
@@ -82,9 +82,9 @@ app.post('/api/auth/2fa', (req, res) => {
 	}
 
 	if (tokenIsValid) {
-		res.json({htmlText: 'success!'});
+		res.status(200).json({sessionID});
 	} else {
-		res.json({err: 'invalid token'});
+		res.sendStatus(401);
 	}
 });
 
