@@ -39,8 +39,8 @@
 			showModal(signinFirstFactor);
 		});
 
-		window.addEventListener('signIn', event => {
-			console.log('Save sessionID to cookie and hide modal.');
+		window.addEventListener('signIn-1fa', event => {
+			console.log('signIn-1fa successful. notify user and show signIn-2fa modal');
 			const signinFirstFactor = root.querySelector('#signin-first-factor');
 			template.content.appendChild(signinFirstFactor);
 		});

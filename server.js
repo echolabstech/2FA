@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const qrcode = require('qrcode');
 
+// const secret = otplib.authenticator.generateSecret();
 const secret = 'NQ4RORLIG5ETMCIE';
 const service = 'MS3 2FA Demo';
 const sessionID = 1;
@@ -29,7 +30,6 @@ app.get('/', (req, res) => {
 
 app.post('/api/signup/1fa', (req, res) => {
 	const {username, password} = req.body;
-	// const secret = otplib.authenticator.generateSecret();
 	const otpauth = otplib.authenticator.keyuri(username, service, secret);
 	qrcode.toDataURL(otpauth, (err, imageUrl) => {
 	  if (err) {
@@ -61,17 +61,12 @@ app.post('/api/signup/2fa', (req, res) => {
 
 app.post('/api/auth/1fa', (req, res) => {
 	const {username, password} = req.body;
-	const service = 'MS3 2FA Demo';
-	// const secret = otplib.authenticator.generateSecret();
-	const secret = 'NQ4RORLIG5ETMCIE';
-	const otpauth = otplib.authenticator.keyuri(username, service, secret);
-	qrcode.toDataURL(otpauth, (err, imageUrl) => {
-	  if (err) {
-	    res.json({err});
-	  } else {
-			res.json({imageUrl});
-	  }
-	});
+	let credentialsAreValid = true;
+	if (credentialsAreValid)  {
+		res.sendStatus(201);
+	} else {
+		res.sendStatus(401);
+	}
 });
 
 app.post('/api/auth/2fa', (req, res) => {

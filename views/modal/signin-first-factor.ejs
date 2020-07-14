@@ -78,11 +78,15 @@
 						body: JSON.stringify({username, password}),
 					};
 					fetch('/api/auth/1fa', options)
-					.then(res => res.json())
-					.then(json => handleJsonError(json))
-					.then(json => {
-						const signInEvent = new CustomEvent('signIn', {detail: {sessionId: 'foobar'}});
-						window.dispatchEvent(signInEvent);
+					.then(res => {
+						if (res.status === 201) {
+							const event = new Event('signIn-1fa');
+							window.dispatchEvent(event);
+						} else if (res.status === 401) {
+							console.error('invalid username or password');
+						} else {
+							console.error('auth error. check server logs');
+						}
 					})
 					.catch(err => console.error(err));
 				};
