@@ -3,12 +3,12 @@
 		const template = document.querySelector('template');
 
 		window.addEventListener('signUp-1fa', event => {
-			console.log('user credentials accepted and qrcode imageURL received');
-			const signupSecondFactor = template.content.querySelector('#signup-second-factor');
-			signupSecondFactor.getElementsByTagName('img').qrcode.src = event.detail.imageUrl;
+			console.log('user credentials accepted and qrcode imageURL received.');
 
-	    const signupFirstFactor = root.querySelector('#signup-first-factor');
-			signupFirstFactor.replaceWith(signupSecondFactor);
+			const signupSecondFactor = template.content.querySelector('#signup-second-factor');
+			signupSecondFactor.querySelector('#qrcode').src = event.detail.imageUrl;
+			hideModal(root.querySelector('#signup-first-factor'));
+			showModal(signupSecondFactor);
 		});
 
 		window.addEventListener('cancel-signup-first-factor', event => {
@@ -31,6 +31,7 @@
 			console.log('signUp-2fa successful. notify user and show login modal');
 
 			hideModal(root.querySelector('#signup-second-factor'));
+
 			const signinFirstFactor = template.content.querySelector('#signin-first-factor');
 			const status = signinFirstFactor.querySelector('#status');
 			status.className = status.className.split(' ').concat(['status--success']).join(' ').trim();
