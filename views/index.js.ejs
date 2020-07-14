@@ -19,20 +19,19 @@
 			root.prepend(signinFirstFactor);
 		});
 
-		function showFirstFactorModal() {
-			const signinFirstFactor = template.content.querySelector('#signin-first-factor');
-			root.prepend(signinFirstFactor);
+		function showModal(modal) {
+			root.prepend(modal);
 		}
 
-		function hideSecondFactorModal() {
-			const signupSecondFactor = root.querySelector('#signup-second-factor');
-			template.content.appendChild(signupSecondFactor);
+		function hideModal(modal) {
+			template.content.appendChild(modal);
 		}
 
 		window.addEventListener('signUp-2fa', event => {
 			console.log('signUp-2fa successful. notify user and show login modal');
-			hideSecondFactorModal();
-			showFirstFactorModal();
+
+			hideModal(root.querySelector('#signup-second-factor'));
+			showModal(template.content.querySelector('#signin-first-factor'));
 		});
 
 		window.addEventListener('signIn', event => {
