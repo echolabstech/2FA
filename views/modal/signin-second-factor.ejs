@@ -62,13 +62,13 @@
 						if (res.status === 200) {
 							return res.json();
 						} else if (res.status === 401) {
-							console.error('invalid token');
+							throw new Error('invalid token');
 						} else {
-							console.error('error: check server logs');
+							throw new Error('error: check server logs');
 						}
 					})
 					.then(json => {
-						const signInEvent = new CustomEvent('signIn-2fa', {detail: {sessionId: json.sessionID}});
+						const signInEvent = new CustomEvent('signIn-2fa', {detail: {sessionID: json.sessionID}});
 						window.dispatchEvent(signInEvent);
 					})
 					.catch(err => console.error(err));
